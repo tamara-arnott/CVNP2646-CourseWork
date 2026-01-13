@@ -7,7 +7,7 @@ This repository contains my coursework for CVNP2646 - Python Fundamentals.
 **Instructor:** McFlyATCC99
 
 ## About This Course
-This course teaches Python programming fundamentals with a focus on cybersecurity applications.
+This course teaches Python programming fundamentals with a focus on cybersecurity.
 
 ## Repository Contents
 - Week 1: Development environment setup

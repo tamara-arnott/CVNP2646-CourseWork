@@ -1,14 +1,25 @@
+================================================================================
 FILE ORGANIZATION REPORT
-========================================
+================================================================================
+Generated: 2026-02-08 13:49:09
+Source Directory: test_downloads
 
-Source: test_downloads
-Date: 2026-02-08 12:03:26
-Total Files: 12
+SUMMARY
+--------
+Total Files Found: 18
+Successfully Organized: 18
+Errors: 0
 
-  DOCUMENTS          3 (25.0%)
-  IMAGES             3 (25.0%)
-  ARCHIVES           2 (16.7%)
-  EXECUTABLES        2 (16.7%)
-  VIDEOS             0 (0.0%)
-  AUDIO              0 (0.0%)
-  OTHER              2 (16.7%)
+CATEGORY BREAKDOWN
+------------------
+DOCUMENTS          4 files (22.2%)
+IMAGES             3 files (16.7%)
+ARCHIVES           3 files (16.7%)
+EXECUTABLES        3 files (16.7%)
+VIDEOS             1 files (5.6%)
+AUDIO              1 files (5.6%)
+OTHER              3 files (16.7%)
+
+================================================================================
+Organization complete!
+================================================================================

@@ -1,0 +1,14 @@
+FILE ORGANIZATION REPORT
+========================================
+
+Source: test_downloads
+Date: 2026-02-08 12:03:26
+Total Files: 12
+
+  DOCUMENTS          3 (25.0%)
+  IMAGES             3 (25.0%)
+  ARCHIVES           2 (16.7%)
+  EXECUTABLES        2 (16.7%)
+  VIDEOS             0 (0.0%)
+  AUDIO              0 (0.0%)
+  OTHER              2 (16.7%)

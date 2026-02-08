@@ -1,0 +1,4 @@
+Name: Tamara Arnott
+GitHub Repository: https://github.com/tamara-arnott/CVNP2646-CourseWork
+Video URL: [ADD AFTER RECORDING]
+Reflection: I worked through each section of the web app with AI, having it explain concepts like pathlib, shutil, and JSON reporting in plain language before accepting any code. When I caught AI writing redundant code that duplicated logic already handled by another function, I created a rule requiring it to give me the cleanest version first — that taught me more about good code than writing it myself would have. The biggest takeaway is that understanding what the code does and why matters more than memorizing how to type it.

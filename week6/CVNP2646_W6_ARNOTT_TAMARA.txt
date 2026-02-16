@@ -1,0 +1,132 @@
+CVNP2646 - Week 6 Reflection
+Tamara Arnott
+
+GitHub Repository: https://github.com/tamara-arnott/CVNP2646-CourseWork/tree/main/week6
+Video: [URL]
+
+REFLECTION
+
+Working through this project with Claude AI as a learning helper was essential. 
+In addition to having it build the scanner, I used ai as a sounding board and asked questions 
+and thought about how Claudeai writes the code and my role in understanding the various commands 
+included - because both Python coding and cyber security are contain all new concepts for me 
+I tried to learn more about how using ai in this type of work happens in the real world. 
+It is difficult for me to imagine doing this type of work without having the support of ai. 
+It would seem to be just about impossible for me to read or write lines of code without wanting 
+to bang my head on a desk - it seems so tediuos. That said, I'm so grateful to be able to 
+learn using Claudeai so that can skip the mind numbing synthax challenges and learn how to 
+think and implement this powerful computer lanaguage.
+
+One question I asked was "WHY LEARN THIS WHEN AI CAN DO IT?"
+
+Early in the process I questioned the value of learning to write code that AI can already 
+generate. Through our discussion I came to understand that the real skill isn't memorizing Python 
+syntax. It's computational thinking - breaking a problem into steps: split this, filter that, 
+count these, report those. If I can't understand what the code is doing, I can't tell when 
+AI gets it wrong (although, it would seem like ai will not really get it wrong, it will just 
+follow my own incorrect prompts which provide room for misinterpretation of my intent. 
+
+The next question I asked was "WHAT WOULD A HUMAN ACTUALLY DO WITH THESE REPORTS?"
+
+I asked Claude what a SOC analyst would do after receiving the scanner's output. This led to 
+understanding the full incident response chain: blocking attacking IP addresses at the firewall, locking 
+targeted accounts and forcing password resets, checking whether any attacker actually got in 
+(I learned that when finding hundreds of FAILs followed by one SUCCESS from the same IP clearly 
+indicates a serious security problem), enabling multi-factor authentication (to short circut malintent), 
+and the need to set up automated blocking tools like Fail2Ban. The scanner built for this 
+assignment is only the first step in the security chain - it finds the problem so humans and 
+automated systems can stop it.
+
+Reflecting on the way the report results are so full of detail, I wondered "WHO IS ACTUALLY READING 
+THESES? and "Can human's really focus on this type of report effectively without getting slopply or 
+distracted"?
+
+This question ultimately was the most important because I'm trying to reconcile use of ai and 
+need for human work at all in this type of activity. My question, about whether anyone would actually 
+read these reports with their eyes and see problems has led to greater understanding of the 
+cybersecruity process itself - using both eyes and code to stop problems as soon as they are noticied. 
+Claude taught me that the JSON report is machine talking to machine - it feeds into SIEM tools 
+like Splunk that automatically compare numbers against rules and trigger alerts. 
+No human reads the JSON. The text report is what a human analyst reads AFTER the automated system 
+has already flagged the problem. That's why the text report puts the most critical information at the top 
+- the analyst needs to understand the situation in about 5 seconds. Understanding this distinction made the 
+project feel like real work instead of just an exercise.
+
+I explored the question "CAN SECURITY BREACHES HAPPEN THROUGH MALFORMED LOG LINES?"
+
+This was new information -- that code can become malformed naturally and that this type of system error 
+can be used to exploit security systems. I learned that attackers can deliberately create malformed log 
+entries to break scanners (log injection), flood logs with garbage to hide their real attack in lines 
+the scanner never reaches (log evasion), or corrupt logs after a breach to cover their tracks. 
+his completely changed how I thought about error handling. It's not just about preventing crashes - 
+it's about preserving evidence.
+
+I asked Claudeai to explain "HOW CAN AN ANALYST TELL IF BAD LINES ARE CORRUPTION OR TAMPERING?"
+
+After learning that malformed lines could be evidence of tampering, I asked how an analyst would actually 
+investigate. I learned they look for patterns: Are the bad lines clustered around a suspicious time window? 
+Are specific fields selectively missing (like just the IP address)? Do timestamps show gaps where lines might 
+have been deleted? They also cross-reference with other sources like firewall logs, backup copies, 
+and logs from other servers. Even if an attacker corrupts one log file, they would have to corrupt logs across 
+multiple systems to fully cover their tracks. It seems to me that problems / scripts could also flag these as well.
+
+Finally, I decided that it was important to have the program log errors in two ways. B
+ased on what I learned about tampering, I pushed to include both error counting (for the summary reports) and 
+saving the actual bad lines to a separate parse_errors.log file. The count tells the report reader "3 lines had problems." 
+The error log tells the investigator exactly which lines failed and why. A scanner that silently skips 
+bad lines could be hiding the most important evidence in the file. This was my own contribution to the project 
+based on understanding the real-world context, not just following the assignment instructions.
+
+To complete these assignments I leaned heavily on CLAUDE AI
+
+I used Claude as both a learning partner and a code generator. Our process was as follows: 
+
+First, Claude walked me through each section of the web app, explaining concepts in plain language when the 
+technical material was unclear due to my lack of previous education in this field of study.
+
+Next, I asked questions throughout - not just "how does this work" but "why does this matter" and 
+"what would a real person do with this."
+
+I asked Claude to create quizzes for me on the concepts to make sure I understood the security context 
+before we wrote the code. For example:
+
+   Q: What happened in this log line?
+      2024-11-25 08:30:12 event=LOGIN status=FAIL user=root ip=203.0.113.89 method=SSH
+   My answer: On November 25, 2024 there was an attempted login which failed. 
+   The user is root which is the master account for the entire system, and the IP address attempting the login 
+   was 203.0.113.89. The method tried was SSH which is a way to connect to a computer remotely.
+
+   Q: Three log lines show FAILs 3 seconds apart from the same IP, trying admin then root then admin. 
+   What pattern do you see?
+   My answer: The attempts were exactly 3 seconds apart which looks like a script is running rather 
+   than a person. Each time the attempt failed. They tried the admin account twice then     
+   switched to root which is the master account. The attack came from the same IP address. 
+   (Claude pointed out that the attempts were not 3 seconds apart but .3 sections apart)
+
+   Q: An IP shows 500 FAILs followed by 1 SUCCESS. What happened?
+   My answer: It appears the script determined the password and got into the system.
+
+   Q: What should the counters show after processing those three FAIL lines?
+   My first answer: 2 users, 1 IP address. Claude clarified: The counters track how many 
+   TIMES each one failed, not just how many unique names. So admin=2, root=1 for
+   users, and the IP=3 because all three attempts came from there. That correction helped me 
+   understand the difference between counting unique items and counting occurrences.
+
+Then I asked Claude to write the code. I did not write it myself. But we built it step by step - 
+one function at a time - and tested each piece before moving on. 
+I asked for explanations when I didn't understand something, like what "key" means in a dictionary.
+
+After the code was written, Claude walked through it and I rewrote the comments in my own words 
+based on my actual understanding. If I couldn't explain a comment, we rewrote it until I could.
+
+The decision to log errors two ways (counting them for reports AND saving the bad lines to a separate file)  
+came from my questions about the security context, not from the assignment requirements. 
+This was my contribution to the design.
+
+The biggest takeaway from this weeks assignment isn't about Python. 
+It's that security tools exist in a chain - scanners find problems, SIEM tools raise alarms, analysts
+investigate, and teams take action. Every design decision in the code (what to count, what to skip, 
+what to save, what to report) connects to a real person doing a real job. Understanding that context 
+made the code make sense in a way that just following instructions wouldn't have.
+
+Thank you for allowing me to learn in this manner! Tamara

@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "generated_at": "2026-02-16T07:45:38.878015",
+    "analyst": "Tamara Arnott",
+    "classification": "INTERNAL"
+  },
+  "summary": {
+    "total_events": 16,
+    "total_success": 4,
+    "total_fail": 12,
+    "failure_rate": 75.0,
+    "parse_errors": 5
+  },
+  "top_targeted_users": [
+    {
+      "username": "admin",
+      "failed_attempts": 7
+    },
+    {
+      "username": "root",
+      "failed_attempts": 3
+    },
+    {
+      "username": "administrator",
+      "failed_attempts": 1
+    },
+    {
+      "username": "test",
+      "failed_attempts": 1
+    }
+  ],
+  "top_attacking_ips": [
+    {
+      "ip_address": "198.51.100.45",
+      "failed_attempts": 7
+    },
+    {
+      "ip_address": "203.0.113.89",
+      "failed_attempts": 2
+    },
+    {
+      "ip_address": "192.0.2.15",
+      "failed_attempts": 2
+    },
+    {
+      "ip_address": "198.51.100.92",
+      "failed_attempts": 1
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Parse Error Log - Generated: 2026-02-16 07:45:38.877845
+======================================================================
+
+Line 8: Malformed pair 'status' in line: 2024-11-25 08:35:10 event=LOGIN status user=admin ip=198.51.100.45 method=SSH
+Line 8: Invalid status ''
+Line 9: Missing or invalid time: 2024-11-25 event=LOGIN status=FAIL user=admin ip=198.51.100.45
+Line 19: Invalid status ''
+Line 20: Missing or invalid date: event=LOGIN status=FAIL user=admin ip=198.51.100.45 method=SSH

@@ -35,7 +35,7 @@ targeted accounts and forcing password resets, checking whether any attacker act
 indicates a serious security problem), enabling multi-factor authentication (to short circut malintent), 
 and the need to set up automated blocking tools like Fail2Ban. The scanner built for this 
 assignment is only the first step in the security chain - it finds the problem so humans and 
-automated systems can stop it.
+automated systems can stop it
 
 Reflecting on the way the report results are so full of detail, I wondered "WHO IS ACTUALLY READING 
 THESES? and "Can human's really focus on this type of report effectively without getting slopply or 
@@ -58,7 +58,7 @@ This was new information -- that code can become malformed naturally and that th
 can be used to exploit security systems. I learned that attackers can deliberately create malformed log 
 entries to break scanners (log injection), flood logs with garbage to hide their real attack in lines 
 the scanner never reaches (log evasion), or corrupt logs after a breach to cover their tracks. 
-his completely changed how I thought about error handling. It's not just about preventing crashes - 
+This completely changed how I thought about error handling. It's not just about preventing crashes - 
 it's about preserving evidence.
 
 I asked Claudeai to explain "HOW CAN AN ANALYST TELL IF BAD LINES ARE CORRUPTION OR TAMPERING?"
@@ -70,8 +70,8 @@ have been deleted? They also cross-reference with other sources like firewall lo
 and logs from other servers. Even if an attacker corrupts one log file, they would have to corrupt logs across 
 multiple systems to fully cover their tracks. It seems to me that problems / scripts could also flag these as well.
 
-Finally, I decided that it was important to have the program log errors in two ways. B
-ased on what I learned about tampering, I pushed to include both error counting (for the summary reports) and 
+Finally, I decided that it was important to have the program log errors in two ways. 
+Based on what I learned about tampering, I pushed to include both error counting (for the summary reports) and 
 saving the actual bad lines to a separate parse_errors.log file. The count tells the report reader "3 lines had problems." 
 The error log tells the investigator exactly which lines failed and why. A scanner that silently skips 
 bad lines could be hiding the most important evidence in the file. This was my own contribution to the project 
@@ -98,10 +98,11 @@ before we wrote the code. For example:
 
    Q: Three log lines show FAILs 3 seconds apart from the same IP, trying admin then root then admin. 
    What pattern do you see?
-   My answer: The attempts were exactly 3 seconds apart which looks like a script is running rather 
+   My answer: The attempts were exactly 3 minutes apart which looks like a script is running rather 
    than a person. Each time the attempt failed. They tried the admin account twice then     
    switched to root which is the master account. The attack came from the same IP address. 
-   (Claude pointed out that the attempts were not 3 seconds apart but .3 sections apart)
+   (I said 3 minutes apart but Claude corrected me - it was 3 seconds apart, 
+   which is even stronger evidence of a script)
 
    Q: An IP shows 500 FAILs followed by 1 SUCCESS. What happened?
    My answer: It appears the script determined the password and got into the system.

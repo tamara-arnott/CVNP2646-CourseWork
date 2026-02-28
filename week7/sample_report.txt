@@ -1,0 +1,40 @@
+Validation PASSED.
+======================================================================
+                    BACKUP PLAN DRY-RUN SIMULATION                    
+======================================================================
+Plan: Security Logs Daily Backup
+Mode: DRY-RUN (no files will be copied)
+
+SUMMARY
+-------
+Total Sources:  3
+Total Files:    25
+Total Size:     1094.7 MB
+
+SOURCE 1: Firewall Logs
+Path: /var/log/firewall
+Files: 5
+  -> firewall_logs_001.log (73.5 MB)
+  -> firewall_logs_002.log (69.8 MB)
+  -> firewall_logs_003.log (46.4 MB)
+  ... and 2 more files
+
+SOURCE 2: IDS Alerts
+Path: /var/log/suricata
+Files: 10
+  -> ids_alerts_001.log (25.4 MB)
+  -> ids_alerts_002.log (80.1 MB)
+  -> ids_alerts_003.log (5.3 MB)
+  ... and 7 more files
+
+SOURCE 3: Auth Logs
+Path: /var/log/auth
+Files: 10
+  -> auth_logs_001.log (2.4 MB)
+  -> auth_logs_002.log (65.1 MB)
+  -> auth_logs_003.log (46.0 MB)
+  ... and 7 more files
+
+======================================================================
+DRY-RUN complete. No files were copied.
+======================================================================

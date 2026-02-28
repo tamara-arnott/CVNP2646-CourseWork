@@ -15,6 +15,7 @@ Usage:
 import json
 import random
 import sys
+from datetime import datetime
 
 
 # =============================================================================
@@ -152,9 +153,12 @@ def simulate_backup(config):
         sum(f['size_mb'] for op in operations for f in op['files']), 1
     )
 
+    timestamp = datetime.now().strftime('%Y-%m-%d_%H%M%S')
+
     return {
         'plan_name': config['plan_name'],
         'mode': 'DRY-RUN',
+        'timestamp': timestamp,
         'summary': {
             'total_sources': len(operations),
             'total_files': total_files,
@@ -185,6 +189,7 @@ def generate_report(report_data):
     print(sep)
     print(f"Plan: {report_data['plan_name']}")
     print(f"Mode: {report_data['mode']} (no files will be copied)")
+    print(f"Timestamp: {report_data['timestamp']}")
     print()
 
     s = report_data['summary']

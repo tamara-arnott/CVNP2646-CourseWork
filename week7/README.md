@@ -38,7 +38,7 @@ The config file has four sections:
 
 **Sources** — a list of directories to back up. It must be a list because the program needs to loop through each source one at a time. Each source has a path, whether to search subfolders recursively, and file patterns to include or exclude. For example, `*.log` means grab any file ending in .log, and `*.tmp` means skip temporary files.
 
-**Destination** — where the backed-up files go. This is not just a folder path — it is a full bundle of related settings including where to save, whether to create timestamped folders, and how long to keep the backups. Think of it like a bag of Halloween candy — it is not just a bag, it has a location (hiding under my bed) AND specific contents inside it: the path (Snickers), the timestamp setting (Mars bars), and the retention period (Nut Buddies). This bundle of related information is what Python calls a dictionary.
+**Destination** — where the backed-up files go. This is not just a folder path — it is a full bundle of related settings including where to save, whether to create timestamped folders, and how long to keep the backups. Think of it like a student record — it is not just a name, it contains the student ID, program, enrollment status, GPA, and advisor all bundled together under one record. In the same way, destination bundles the path, the timestamp setting, and the retention period all together. This bundle of related information is what Python calls a dictionary.
 
 **Options** — optional settings including whether to verify backups completed correctly and the maximum file size to include.
 
@@ -88,7 +88,7 @@ The program uses five functions, each with one single responsibility:
 
 **generate_report()** — Prints a formatted, human-readable report to the screen showing the plan name, summary statistics, and sample files for each source.
 
-**main()** — Defined at the bottom of the file but runs first — like a meeting agenda that gets written last but followed first. It calls each of the other functions in the correct order: Load → Validate → Simulate → Report. Reads the config file name from the command line.
+**main()** — The orchestrator that coordinates all the other functions in the correct order: Load → Validate → Simulate → Report. It does not do the detailed work itself — it calls the right specialist function at the right time and passes results from one step to the next. Think of it like a student onboarding plan — it directs every step of the process in the right sequence without doing the work of any individual office. Reads the config file name from the command line.
 
 Each function does one thing only. This makes the program easier to test, debug, and maintain.
 

@@ -1,0 +1,54 @@
+{
+  "feed_name": "VendorB Indicators",
+  "generated": "2024-11-20T10:05:00Z",
+  "data": [
+    {
+      "ioc_id": "VB-001",
+      "indicator_type": "ip",
+      "indicator_value": "203.0.113.10",
+      "score": 92,
+      "severity": "high",
+      "discovered": "2024-11-14"
+    },
+    {
+      "ioc_id": "VB-002",
+      "indicator_type": "domain",
+      "indicator_value": "malicious.example",
+      "score": 87,
+      "severity": "high",
+      "discovered": "2024-11-15"
+    },
+    {
+      "ioc_id": "VB-003",
+      "indicator_type": "ip",
+      "indicator_value": "10.20.30.40",
+      "score": 91,
+      "severity": "critical",
+      "discovered": "2024-11-16"
+    },
+    {
+      "ioc_id": "VB-004",
+      "indicator_type": "url",
+      "indicator_value": "http://evil.example/payload",
+      "score": 85,
+      "severity": "high",
+      "discovered": "2024-11-17"
+    },
+    {
+      "ioc_id": "VB-005",
+      "indicator_type": "hash",
+      "indicator_value": "aabbcc1234567890aabbcc1234567890",
+      "score": 89,
+      "severity": "high",
+      "discovered": "2024-11-18"
+    },
+    {
+      "ioc_id": "VB-006",
+      "indicator_type": "ip",
+      "indicator_value": "172.16.254.1",
+      "score": 70,
+      "severity": "medium",
+      "discovered": "2024-11-19"
+    }
+  ]
+}

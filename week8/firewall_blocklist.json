@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-03-01T16:43:08Z",
+  "total_entries": 8,
+  "blocklist": [
+    {
+      "address": "203.0.113.10",
+      "action": "block",
+      "priority": "critical",
+      "reason": "Threat level: critical, Confidence: 95%",
+      "sources": [
+        "VendorA",
+        "VendorB"
+      ]
+    },
+    {
+      "address": "malicious.example",
+      "action": "block",
+      "priority": "high",
+      "reason": "Threat level: high, Confidence: 90%",
+      "sources": [
+        "VendorA",
+        "VendorC",
+        "VendorB"
+      ]
+    },
+    {
+      "address": "198.51.100.22",
+      "action": "block",
+      "priority": "high",
+      "reason": "Threat level: high, Confidence: 88%",
+      "sources": [
+        "VendorA"
+      ]
+    },
+    {
+      "address": "badactor.net",
+      "action": "block",
+      "priority": "critical",
+      "reason": "Threat level: critical, Confidence: 92%",
+      "sources": [
+        "VendorA"
+      ]
+    },
+    {
+      "address": "10.20.30.40",
+      "action": "block",
+      "priority": "critical",
+      "reason": "Threat level: critical, Confidence: 91%",
+      "sources": [
+        "VendorB"
+      ]
+    },
+    {
+      "address": "203.0.113.99",
+      "action": "block",
+      "priority": "critical",
+      "reason": "Threat level: critical, Confidence: 93%",
+      "sources": [
+        "VendorC"
+      ]
+    },
+    {
+      "address": "stealer.io",
+      "action": "block",
+      "priority": "high",
+      "reason": "Threat level: high, Confidence: 86%",
+      "sources": [
+        "VendorC"
+      ]
+    },
+    {
+      "address": "45.33.32.156",
+      "action": "block",
+      "priority": "critical",
+      "reason": "Threat level: critical, Confidence: 91%",
+      "sources": [
+        "VendorC"
+      ]
+    }
+  ]
+}

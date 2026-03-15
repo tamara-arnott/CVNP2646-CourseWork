@@ -1,0 +1,60 @@
+{
+  "source": "VendorA ThreatFeed",
+  "timestamp": "2024-11-20T10:00:00Z",
+  "indicators": [
+    {
+      "id": "VA-001",
+      "type": "ip",
+      "value": "203.0.113.10",
+      "confidence": 95,
+      "threat": "critical",
+      "first_seen": "2024-11-15",
+      "tags": ["apt28", "c2"]
+    },
+    {
+      "id": "VA-002",
+      "type": "domain",
+      "value": "malicious.example",
+      "confidence": 90,
+      "threat": "high",
+      "first_seen": "2024-11-16",
+      "tags": ["phishing"]
+    },
+    {
+      "id": "VA-003",
+      "type": "ip",
+      "value": "198.51.100.22",
+      "confidence": 88,
+      "threat": "high",
+      "first_seen": "2024-11-17",
+      "tags": ["botnet"]
+    },
+    {
+      "id": "VA-004",
+      "type": "hash",
+      "value": "d41d8cd98f00b204e9800998ecf8427e",
+      "confidence": 78,
+      "threat": "medium",
+      "first_seen": "2024-11-18",
+      "tags": ["malware"]
+    },
+    {
+      "id": "VA-005",
+      "type": "domain",
+      "value": "badactor.net",
+      "confidence": 92,
+      "threat": "critical",
+      "first_seen": "2024-11-14",
+      "tags": ["apt28", "exfil"]
+    },
+    {
+      "id": "VA-006",
+      "type": "ip",
+      "value": "192.0.2.55",
+      "confidence": 60,
+      "threat": "low",
+      "first_seen": "2024-11-19",
+      "tags": ["suspicious"]
+    }
+  ]
+}

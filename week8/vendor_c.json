@@ -1,0 +1,54 @@
+{
+  "provider": "VendorC",
+  "created_at": "2024-11-20T10:10:00Z",
+  "threats": [
+    {
+      "threat_id": "VC-001",
+      "category": "domain",
+      "ioc": "malicious.example",
+      "reliability": 88,
+      "risk": "high",
+      "seen_at": "2024-11-16"
+    },
+    {
+      "threat_id": "VC-002",
+      "category": "ip",
+      "ioc": "203.0.113.99",
+      "reliability": 93,
+      "risk": "critical",
+      "seen_at": "2024-11-15"
+    },
+    {
+      "threat_id": "VC-003",
+      "category": "domain",
+      "ioc": "stealer.io",
+      "reliability": 86,
+      "risk": "high",
+      "seen_at": "2024-11-17"
+    },
+    {
+      "threat_id": "VC-004",
+      "category": "ip",
+      "ioc": "45.33.32.156",
+      "reliability": 91,
+      "risk": "critical",
+      "seen_at": "2024-11-14"
+    },
+    {
+      "threat_id": "VC-005",
+      "category": "hash",
+      "ioc": "fe4d8c7b1a2e9f305d6e7a8b9c0d1e2f",
+      "reliability": 80,
+      "risk": "medium",
+      "seen_at": "2024-11-18"
+    },
+    {
+      "threat_id": "VC-006",
+      "category": "ip",
+      "ioc": "",
+      "reliability": 90,
+      "risk": "critical",
+      "seen_at": "2024-11-19"
+    }
+  ]
+}

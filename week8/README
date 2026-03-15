@@ -1,0 +1,109 @@
+# Threat Intelligence Aggregator
+**CVNP2646 – Week 8 Project**
+Tamara Arnott
+
+---
+
+## Overview
+
+This tool loads threat intelligence data from three vendors, each using different JSON formats — similar to receiving transfer transcripts from three different colleges, each using different column headers for the same information. The script translates everything into one consistent internal format, checks records for completeness, removes duplicates, applies minimum acceptance standards, and produces three output files tailored to the needs of three different audiences.
+
+---
+
+## How to Run
+
+Make sure all three vendor JSON files are in the same folder as the script, then run:
+
+```
+python3 Threat_aggregator.py
+```
+
+The script prints a summary to the console and generates three output files in the same folder.
+
+---
+
+## Feed Formats
+
+Each vendor uses different field names for the same concepts — like three colleges using different labels on their transcripts for the same student information:
+
+| Concept | VendorA | VendorB | VendorC |
+|---|---|---|---|
+| ID | `id` | `ioc_id` | `threat_id` |
+| Type | `type` | `indicator_type` | `category` |
+| Value | `value` | `indicator_value` | `ioc` |
+| Confidence | `confidence` | `score` | `reliability` |
+| Threat level | `threat` | `severity` | `risk` |
+| Date | `first_seen` | `discovered` | `seen_at` |
+| Indicators key | `indicators` | `data` | `threats` |
+
+---
+
+## Normalization Logic
+
+The `normalize_indicator()` function translates each vendor's field names into our standard internal format — like a transfer evaluator who accepts ENGL 101 from a sending institution and maps it to ENGL 1410 at ATCC. The course content is the same, only the label changed.
+
+Python's `.get()` method is chained with `or` to try each vendor's field name in sequence. The first one that returns a value wins. All indicators are converted to a standard internal format with fields: `id`, `type`, `value`, `confidence`, `threat_level`, `first_seen`, `sources`.
+
+---
+
+## Deduplication Strategy
+
+Two indicators are considered duplicates if they share the same `type` AND `value`. This is handled like a student record that accidentally lists the same course twice — we keep only one, using the version with the higher confidence score, and note all sources where the duplicate appeared. Sources lists from all versions are merged so the final entry reflects every vendor who reported that threat.
+
+---
+
+## Filter Criteria
+
+Filters are defined as constants at the top of the script for easy adjustment — like our transfer credit acceptance policy. A course must meet all three standards to move forward:
+
+- **Minimum confidence: 85** — like requiring a grade of C or better for transfer credit
+- **Allowed threat levels: high, critical** — like requiring the course come from a regionally accredited institution
+- **Allowed types: ip, domain** — like requiring the course map to an approved subject area at ATCC
+
+An indicator that fails any one of the three standards is counted and noted but removed from further processing.
+
+---
+
+## Output Formats
+
+The same processed data is written three different ways to meet the needs of three different audiences — like writing a transfer credit summary three ways for three different offices:
+
+**1. firewall_blocklist.json** — formatted for the firewall system. Contains address, action, priority, reason, and sources. Like the report the registrar needs showing official course equivalencies to update the student's academic record.
+
+**2. siem_feed.json** — formatted for the SIEM tool. Contains richer data including indicator type (using SIEM-specific names like ipv4), confidence score, severity, sources, and a full ISO timestamp. Like the report the dean needs to determine which courses still need to be added to the schedule.
+
+**3. summary_report.txt** — plain text for human readers. Shows processing statistics, distributions by type and severity, and vendor contribution rankings. Like a report the student can read to understand how their previous coursework counts and applies toward graduation at ATCC.
+
+---
+
+## Test Data
+
+**vendor_a.json** — 6 indicators including 2 duplicates that appear in other feeds (VA-001 IP address and VA-002 domain), 1 low-confidence indicator (VA-004, score 78), and 1 low-threat indicator (VA-006, score 60).
+
+**vendor_b.json** — 6 indicators including 2 duplicates matching VendorA (VB-001 same IP, VB-002 same domain), 1 URL type that gets filtered out, 1 hash type that gets filtered out, and 1 low-confidence indicator (VB-006, score 70).
+
+**vendor_c.json** — 6 indicators including 1 duplicate matching both other vendors (VC-001 same domain), 1 low-confidence indicator (VC-005, score 80), and 1 intentional validation error (VC-006 has an empty value field to test error handling).
+
+---
+
+## AI Usage
+
+Claude was used as a structured teaching and development partner throughout this project. Rather than simply providing finished code, Claude walked through each concept step by step — waiting for my confirmation before moving to the next step — and created practice exercises at key points to test my understanding before we built the actual script.
+
+Specifically, Claude:
+
+- Taught the ETL pattern (Extract, Transform, Load) and how it applies to threat intelligence aggregation
+- Explained normalization and the `.get()` chaining technique used to translate vendor field names
+- Created practice exercises where I had to correctly map normalized indicators to firewall and SIEM output formats — confirming my understanding of how the same data gets shaped differently for different consumers
+- Explained deduplication using Python dictionary keys as a cleaner alternative to nested loops
+- Clarified the normalize/denormalize concept — translating vendor schemas into a standard internal format at the start, then translating back out to each consumer's format at the end
+- Generated the three vendor JSON test files with appropriate duplicates and validation errors
+- Wrote comments throughout the script using higher education analogies drawn from my own work in transfer credit evaluation and student onboarding at ATCC
+
+All code was reviewed and explained before inclusion. I was comfortable and familiar with all concepts covered in this assignment.
+
+---
+
+## Challenges
+
+The concepts in this assignment — normalization, deduplication, filtering, and multi-format output — were all familiar and manageable. The most valuable part of the process was working through practice exercises that required me to correctly transform a normalized indicator into both firewall and SIEM formats before seeing the answers. This confirmed that I understood not just what the code does, but why each field maps the way it does for each consumer.

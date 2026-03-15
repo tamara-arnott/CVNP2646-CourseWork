@@ -1,0 +1,89 @@
+{
+  "feed_version": "1.0",
+  "timestamp": "2026-03-01T16:43:08Z",
+  "indicators": [
+    {
+      "indicator": "203.0.113.10",
+      "type": "ipv4",
+      "confidence": 95,
+      "severity": "critical",
+      "sources": [
+        "VendorA",
+        "VendorB"
+      ],
+      "first_seen": "2024-11-15T00:00:00Z"
+    },
+    {
+      "indicator": "malicious.example",
+      "type": "domain",
+      "confidence": 90,
+      "severity": "high",
+      "sources": [
+        "VendorA",
+        "VendorC",
+        "VendorB"
+      ],
+      "first_seen": "2024-11-16T00:00:00Z"
+    },
+    {
+      "indicator": "198.51.100.22",
+      "type": "ipv4",
+      "confidence": 88,
+      "severity": "high",
+      "sources": [
+        "VendorA"
+      ],
+      "first_seen": "2024-11-17T00:00:00Z"
+    },
+    {
+      "indicator": "badactor.net",
+      "type": "domain",
+      "confidence": 92,
+      "severity": "critical",
+      "sources": [
+        "VendorA"
+      ],
+      "first_seen": "2024-11-14T00:00:00Z"
+    },
+    {
+      "indicator": "10.20.30.40",
+      "type": "ipv4",
+      "confidence": 91,
+      "severity": "critical",
+      "sources": [
+        "VendorB"
+      ],
+      "first_seen": "2024-11-16T00:00:00Z"
+    },
+    {
+      "indicator": "203.0.113.99",
+      "type": "ipv4",
+      "confidence": 93,
+      "severity": "critical",
+      "sources": [
+        "VendorC"
+      ],
+      "first_seen": "2024-11-15T00:00:00Z"
+    },
+    {
+      "indicator": "stealer.io",
+      "type": "domain",
+      "confidence": 86,
+      "severity": "high",
+      "sources": [
+        "VendorC"
+      ],
+      "first_seen": "2024-11-17T00:00:00Z"
+    },
+    {
+      "indicator": "45.33.32.156",
+      "type": "ipv4",
+      "confidence": 91,
+      "severity": "critical",
+      "sources": [
+        "VendorC"
+      ],
+      "first_seen": "2024-11-14T00:00:00Z"
+    }
+  ]
+}

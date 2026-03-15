@@ -1,0 +1,48 @@
+
+================================================================
+         THREAT INTELLIGENCE AGGREGATION REPORT
+================================================================
+Generated: 2026-03-01 10:43:08
+
+INPUT SUMMARY
+----------------------------------------------------------------
+Feeds processed:           3
+Total indicators loaded:   18
+Valid indicators:          17
+Validation errors:         1
+
+DEDUPLICATION
+----------------------------------------------------------------
+Unique indicators:         14
+Duplicates removed:        3
+
+FILTERING
+----------------------------------------------------------------
+Confidence threshold:      >= 85
+Threat levels:             high, critical
+Indicator types:           ip, domain
+Indicators passing:        8
+Filtered out:              6
+
+OUTPUT GENERATED
+----------------------------------------------------------------
+✓ firewall_blocklist.json  (8 entries)
+✓ siem_feed.json           (8 indicators)
+
+DISTRIBUTION BY TYPE
+----------------------------------------------------------------
+IP Addresses:              5
+Domains:                   3
+
+DISTRIBUTION BY SEVERITY
+----------------------------------------------------------------
+Critical:                  5
+High:                      3
+
+TOP SOURCES (by unique indicators contributed)
+----------------------------------------------------------------
+1. VendorA:              4 indicators
+2. VendorC:              4 indicators
+3. VendorB:              3 indicators
+
+================================================================

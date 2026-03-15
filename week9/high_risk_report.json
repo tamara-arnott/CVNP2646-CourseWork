@@ -1,0 +1,157 @@
+{
+  "report_date": "2026-03-15T10:02:46.488114",
+  "report_type": "High Risk Host Assessment",
+  "total_hosts": 20,
+  "total_high_risk": 13,
+  "risk_distribution": {
+    "critical": 10,
+    "high": 3,
+    "medium": 7,
+    "low": 0
+  },
+  "high_risk_hosts": [
+    {
+      "hostname": "WEB-SRV-001",
+      "risk_score": 100,
+      "risk_level": "critical",
+      "days_since_patch": 692,
+      "criticality": "critical",
+      "environment": "production",
+      "tags": [
+        "internet-facing",
+        "pci-scope"
+      ]
+    },
+    {
+      "hostname": "WEB-SRV-002",
+      "risk_score": 100,
+      "risk_level": "critical",
+      "days_since_patch": 531,
+      "criticality": "critical",
+      "environment": "production",
+      "tags": [
+        "internet-facing"
+      ]
+    },
+    {
+      "hostname": "DB-SRV-001",
+      "risk_score": 100,
+      "risk_level": "critical",
+      "days_since_patch": 605,
+      "criticality": "critical",
+      "environment": "production",
+      "tags": [
+        "pci-scope",
+        "hipaa"
+      ]
+    },
+    {
+      "hostname": "SEC-SRV-001",
+      "risk_score": 100,
+      "risk_level": "critical",
+      "days_since_patch": 407,
+      "criticality": "critical",
+      "environment": "production",
+      "tags": [
+        "internet-facing"
+      ]
+    },
+    {
+      "hostname": "IT-SRV-DC01",
+      "risk_score": 100,
+      "risk_level": "critical",
+      "days_since_patch": 670,
+      "criticality": "critical",
+      "environment": "production",
+      "tags": [
+        "internet-facing",
+        "pci-scope"
+      ]
+    },
+    {
+      "hostname": "FIN-WKS-001",
+      "risk_score": 95,
+      "risk_level": "critical",
+      "days_since_patch": 577,
+      "criticality": "high",
+      "environment": "production",
+      "tags": [
+        "pci-scope",
+        "internet-facing"
+      ]
+    },
+    {
+      "hostname": "MON-SRV-001",
+      "risk_score": 85,
+      "risk_level": "critical",
+      "days_since_patch": 511,
+      "criticality": "high",
+      "environment": "production",
+      "tags": [
+        "internet-facing"
+      ]
+    },
+    {
+      "hostname": "FIN-WKS-002",
+      "risk_score": 80,
+      "risk_level": "critical",
+      "days_since_patch": 480,
+      "criticality": "high",
+      "environment": "production",
+      "tags": [
+        "pci-scope"
+      ]
+    },
+    {
+      "hostname": "DB-SRV-002",
+      "risk_score": 80,
+      "risk_level": "critical",
+      "days_since_patch": 411,
+      "criticality": "high",
+      "environment": "production",
+      "tags": [
+        "pci-scope"
+      ]
+    },
+    {
+      "hostname": "IT-SRV-DC02",
+      "risk_score": 70,
+      "risk_level": "critical",
+      "days_since_patch": 429,
+      "criticality": "high",
+      "environment": "production",
+      "tags": []
+    },
+    {
+      "hostname": "HR-WKS-001",
+      "risk_score": 65,
+      "risk_level": "high",
+      "days_since_patch": 434,
+      "criticality": "medium",
+      "environment": "production",
+      "tags": [
+        "hipaa"
+      ]
+    },
+    {
+      "hostname": "HR-WKS-002",
+      "risk_score": 65,
+      "risk_level": "high",
+      "days_since_patch": 643,
+      "criticality": "medium",
+      "environment": "production",
+      "tags": [
+        "hipaa"
+      ]
+    },
+    {
+      "hostname": "STG-WEB-001",
+      "risk_score": 63,
+      "risk_level": "high",
+      "days_since_patch": 516,
+      "criticality": "high",
+      "environment": "staging",
+      "tags": []
+    }
+  ]
+}

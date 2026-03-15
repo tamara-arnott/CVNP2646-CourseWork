@@ -1,0 +1,49 @@
+============================================================
+     WEEKLY PATCH COMPLIANCE SUMMARY REPORT
+============================================================
+Generated: 2026-03-15 10:02:46
+
+EXECUTIVE SUMMARY
+------------------------------------------------------------
+Total Systems Analyzed:        20
+High-Risk Systems Identified:  13 (65.0%)
+Critical Priority Systems:     10
+Immediate Action Required:     20 systems >90 days unpatched
+
+RISK DISTRIBUTION
+------------------------------------------------------------
+Critical (>=70 points):        10 systems
+High (50-69 points):           3 systems
+Medium (25-49 points):         7 systems
+Low (<25 points):              0 systems
+
+TOP 5 HIGHEST RISK SYSTEMS
+------------------------------------------------------------
+1. WEB-SRV-001 (Score: 100, Critical)
+   Last Patched: 692 days ago | Production | Tags: internet-facing, pci-scope
+
+2. WEB-SRV-002 (Score: 100, Critical)
+   Last Patched: 531 days ago | Production | Tags: internet-facing
+
+3. DB-SRV-001 (Score: 100, Critical)
+   Last Patched: 605 days ago | Production | Tags: pci-scope, hipaa
+
+4. SEC-SRV-001 (Score: 100, Critical)
+   Last Patched: 407 days ago | Production | Tags: internet-facing
+
+5. IT-SRV-DC01 (Score: 100, Critical)
+   Last Patched: 670 days ago | Production | Tags: internet-facing, pci-scope
+
+RECOMMENDED ACTIONS
+------------------------------------------------------------
+IMMEDIATE (Next 48 hours):
+  Patch 10 critical-risk systems
+
+THIS WEEK (Next 7 days):
+  Schedule maintenance windows for 13 high-risk production systems
+
+COMPLIANCE NOTES
+------------------------------------------------------------
+PCI-DSS: 6 systems in PCI scope require immediate attention
+CIS Control 7: Patch critical vulnerabilities within 48 hours
+============================================================

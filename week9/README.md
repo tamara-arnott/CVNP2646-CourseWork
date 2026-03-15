@@ -82,6 +82,33 @@ python3 patch_tracker.py
 ```
 This will generate `high_risk_report.json` and `patch_summary.txt` in the same folder.
 
+## Test Results
+Running the tracker against the 20-host inventory produced the following results:
+
+- Total systems analyzed: 20
+- High-risk systems identified: 13 (65%)
+- Critical priority systems: 10
+- Systems unpatched more than 90 days: 12
+
+**Top 3 Highest Risk Systems:**
+| Rank | Hostname | Score | Risk Level | Days Since Patch |
+|---|---|---|---|---|
+| 1 | IT-SRV-DC01 | 100 | Critical | 670+ days |
+| 2 | WEB-SRV-001 | 100 | Critical | 690+ days |
+| 3 | DB-SRV-001 | 95 | Critical | 600+ days |
+
+Both IT-SRV-DC01 and WEB-SRV-001 scored 100 — the maximum — because they are critical production systems that are internet-facing, in PCI scope, and have not been patched in nearly two years.
+
+## AI Usage
+I used Claudeai as my AI tool throughout this project. Rather than generating the entire script at once, I built it one function at a time, testing each piece before moving on. This approach helped me understand what each part was doing rather than just copying a finished product.
+
+Claude helped me work through the logic of the risk scoring algorithm, understand why patch age order matters in if/elif chains, and troubleshoot indentation errors as they came up. I also used our conversation to work through the real-world context behind the tool — why patches can't roll out all at once, what PCI-scope means, and how FERPA would apply in a higher education environment. That context ended up in the README as well.
+
+## Challenges
+The biggest technical challenge was indentation errors. Python is very strict about consistent spacing, and several of my function definitions ended up with extra spaces that caused the script to crash. The fix was straightforward once I understood what was happening — clicking to the start of the affected line and deleting the extra spaces until it lined up with the other function definitions.
+
+The bigger challenge early on was understanding the purpose of the tool. It wasn't immediately clear why a patch tracker needed multi-factor scoring instead of just sorting by patch age. Working through the real-world context — comparing a developer's laptop to a production web server handling credit card data — made the scoring logic click. Once I understood the why, the how made much more sense.
+
 ## Files
 - `patch_tracker.py` — Main script
 - `host_inventory.json` — Input data (20 host computers)

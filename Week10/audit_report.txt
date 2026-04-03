@@ -1,0 +1,71 @@
+================================================================================
+USER ACCOUNT & PERMISSIONS AUDIT REPORT
+================================================================================
+Generated: 2026-04-03 16:40:30
+
+EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+Total Users Audited:      20
+Total Role Assignments:   21
+Total Violations Found:   10
+
+VIOLATIONS BY SEVERITY
+--------------------------------------------------------------------------------
+CRITICAL     [  6] ██████
+HIGH         [  2] ██
+MEDIUM       [  2] ██
+LOW          [  0] 
+
+VIOLATIONS BY TYPE
+--------------------------------------------------------------------------------
+disabled_with_roles            6
+unauthorized_admin             2
+stale_account                  2
+
+DETAILED VIOLATIONS
+--------------------------------------------------------------------------------
+
+[CRITICAL]
+  User:    asmith (U002)
+  Type:    disabled_with_roles
+  Details: Disabled account has 2 active role(s): hr_manager, admin
+
+  User:    cjones (U005)
+  Type:    disabled_with_roles
+  Details: Disabled account has 1 active role(s): sales_rep
+
+  User:    wrodriguez (U008)
+  Type:    disabled_with_roles
+  Details: Disabled account has 1 active role(s): support_agent
+
+  User:    ggonzalez (U012)
+  Type:    disabled_with_roles
+  Details: Disabled account has 1 active role(s): finance_manager
+
+  User:    thomass (U015)
+  Type:    disabled_with_roles
+  Details: Disabled account has 1 active role(s): operations_analyst
+
+  User:    martinl (U019)
+  Type:    disabled_with_roles
+  Details: Disabled account has 1 active role(s): security_admin
+
+
+[HIGH]
+  User:    asmith (U002)
+  Type:    unauthorized_admin
+  Details: HR dept user has admin role: admin
+
+  User:    mooreb (U017)
+  Type:    unauthorized_admin
+  Details: Marketing dept user has admin role: marketing_admin
+
+
+[MEDIUM]
+  User:    taylorr (U016)
+  Type:    stale_account
+  Details: No login for 153 days (last: 2025-11-01)
+
+  User:    leev (U020)
+  Type:    stale_account
+  Details: No login for 170 days (last: 2025-10-15)

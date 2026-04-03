@@ -1,0 +1,101 @@
+{
+  "audit_metadata": {
+    "timestamp": "2026-04-03T16:40:30.833301",
+    "total_users_audited": 20,
+    "total_role_assignments": 21,
+    "total_violations": 10,
+    "auditor": "IAM Audit System v1.0"
+  },
+  "violation_summary": {
+    "by_severity": {
+      "CRITICAL": 6,
+      "HIGH": 2,
+      "MEDIUM": 2
+    },
+    "by_type": {
+      "disabled_with_roles": 6,
+      "unauthorized_admin": 2,
+      "stale_account": 2
+    }
+  },
+  "all_violations": [
+    {
+      "user_id": "U002",
+      "username": "asmith",
+      "violation_type": "disabled_with_roles",
+      "severity": "CRITICAL",
+      "details": "Disabled account has 2 active role(s): hr_manager, admin"
+    },
+    {
+      "user_id": "U005",
+      "username": "cjones",
+      "violation_type": "disabled_with_roles",
+      "severity": "CRITICAL",
+      "details": "Disabled account has 1 active role(s): sales_rep"
+    },
+    {
+      "user_id": "U008",
+      "username": "wrodriguez",
+      "violation_type": "disabled_with_roles",
+      "severity": "CRITICAL",
+      "details": "Disabled account has 1 active role(s): support_agent"
+    },
+    {
+      "user_id": "U012",
+      "username": "ggonzalez",
+      "violation_type": "disabled_with_roles",
+      "severity": "CRITICAL",
+      "details": "Disabled account has 1 active role(s): finance_manager"
+    },
+    {
+      "user_id": "U015",
+      "username": "thomass",
+      "violation_type": "disabled_with_roles",
+      "severity": "CRITICAL",
+      "details": "Disabled account has 1 active role(s): operations_analyst"
+    },
+    {
+      "user_id": "U019",
+      "username": "martinl",
+      "violation_type": "disabled_with_roles",
+      "severity": "CRITICAL",
+      "details": "Disabled account has 1 active role(s): security_admin"
+    },
+    {
+      "user_id": "U002",
+      "username": "asmith",
+      "violation_type": "unauthorized_admin",
+      "severity": "HIGH",
+      "details": "HR dept user has admin role: admin",
+      "department": "HR",
+      "role": "admin"
+    },
+    {
+      "user_id": "U017",
+      "username": "mooreb",
+      "violation_type": "unauthorized_admin",
+      "severity": "HIGH",
+      "details": "Marketing dept user has admin role: marketing_admin",
+      "department": "Marketing",
+      "role": "marketing_admin"
+    },
+    {
+      "user_id": "U016",
+      "username": "taylorr",
+      "violation_type": "stale_account",
+      "severity": "MEDIUM",
+      "details": "No login for 153 days (last: 2025-11-01)",
+      "last_login": "2025-11-01",
+      "days_inactive": 153
+    },
+    {
+      "user_id": "U020",
+      "username": "leev",
+      "violation_type": "stale_account",
+      "severity": "MEDIUM",
+      "details": "No login for 170 days (last: 2025-10-15)",
+      "last_login": "2025-10-15",
+      "days_inactive": 170
+    }
+  ]
+}

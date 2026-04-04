@@ -1,7 +1,7 @@
 ================================================================================
 USER ACCOUNT & PERMISSIONS AUDIT REPORT
 ================================================================================
-Generated: 2026-04-03 16:40:30
+Generated: 2026-04-04 15:07:57
 
 EXECUTIVE SUMMARY
 --------------------------------------------------------------------------------
@@ -64,8 +64,8 @@ DETAILED VIOLATIONS
 [MEDIUM]
   User:    taylorr (U016)
   Type:    stale_account
-  Details: No login for 153 days (last: 2025-11-01)
+  Details: No login for 154 days (last: 2025-11-01)
 
   User:    leev (U020)
   Type:    stale_account
-  Details: No login for 170 days (last: 2025-10-15)
+  Details: No login for 171 days (last: 2025-10-15)

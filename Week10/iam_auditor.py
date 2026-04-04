@@ -256,12 +256,11 @@ def generate_json_report(all_violations, users_dict, roles_data):
         'all_violations': all_violations
     }
     
-    return json.dumps(report, indent=2)
+    with open('audit_report.json', "w") as f:
+        json.dump(report, f, indent=2)
 
 # Write JSON report to file
-json_report = generate_json_report(all_violations, users_dict, roles_data)
-with open('audit_report.json', 'w') as f:
-    f.write(json_report)
+generate_json_report(all_violations, users_dict, roles_data)
 
 print(f"\nJSON report saved to audit_report.json")
 

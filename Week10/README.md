@@ -34,7 +34,7 @@ The user_id is the foreign key that connects the two files — the same way a
 student ID connects an enrollment record to a financial aid record in a
 student information system.
 
-To connect the two files quickly, the script organizes user records into a filling-cabinet-style lookup table where each user's ID is the label. This means that script can find any user's details instantly instead of scanning through every record on by one. 
+To connect the two files quickly, the script organizes user records into a filing-cabinet-style lookup table where each user's ID is the label. This means the script can find any user's details instantly instead of scanning through every record one by one. 
 
 ---
 
@@ -75,30 +75,43 @@ than their job requires.
 
 ## AI-Assisted Development
 
-I used Claude (Anthropic) to brainstorm additional detection rules beyond the
-three required by the assignment.
+### Tool Used
+I used Claude (Anthropic) throughout this project for brainstorming additional
+detection rules, talking through logic before writing code, and checking my
+work as I built each piece. I chose Claude because it is the AI tool I have
+been using throughout this course and I am familiar with how to work with it
+effectively.
 
-**Prompt I used:**
-"I'm building a user account auditor for cybersecurity. I have two datasets:
+### Exact Prompt Used for Rule Brainstorming
+"I'm building a user account auditor for cybersecurity per the instructions. 
+I have been given two datasets:
 user accounts (user_id, username, status, department, last_login) and role
 memberships (user_id, role, assigned_date). I've already implemented rules
 for disabled users with roles, unauthorized admins, and stale accounts. What
 are additional security anomalies I should detect?"
 
-**What Claude suggested:**
-1. Orphaned Roles — IMPLEMENTED. Practical and easy to implement with a set
-   difference operation. Catches real data integrity problems.
-2. Excessive Permissions — IMPLEMENTED. Relevant to real-world privilege
-   creep. Threshold is configurable.
-3. Conflicting Roles (e.g., auditor + admin) — NOT IMPLEMENTED. Good idea
-   but would require a predefined list of conflicting role pairs that I don't
-   have in my test data.
-4. Service Account Detection — NOT IMPLEMENTED. Our data set doesn't include a field that identifies whether an account belongs to a person or an automated system, so this rule could not be built. 
-5. Department Validation — NOT IMPLEMENTED. Would require a separate list of
-   valid departments to check against.
+### AI Suggestions — Implemented vs Rejected
 
-I chose Rules 4 and 5 because both were supported by my existing test data,
-made clear security sense, and were practical to implement and explain.
+| Suggestion | Decision | Reason |
+|------------|----------|--------|
+| Orphaned Roles | IMPLEMENTED | Practical, supported by our data, catches real data integrity problems |
+| Excessive Permissions | IMPLEMENTED | Relevant to real-world privilege creep, threshold is configurable |
+| Conflicting Roles | REJECTED | Claude said this would require a predefined list of conflicting role pairs not available in our test data |
+| Service Account Detection | REJECTED | Our dataset doesn't include a field identifying automated system accounts vs. person accounts |
+| Department Validation | REJECTED | Would require a separate list of valid departments to check against |
+
+### Bugs or Issues Found in AI-Generated Code
+No bugs were found in the AI-suggested code. One adjustment was made to the
+excessive permissions rule: Claude initially suggested a threshold of 5 roles,
+but I changed it to 1 because most users in our dataset have exactly one role,
+making 1 the appropriate baseline for this environment.
+
+### How AI Improved the Final Implementation
+Working with Claude helped me think through the data relationships before
+writing any code — similar to talking through a problem with a colleague
+before jumping to a solution. Claude also helped me understand why certain
+approaches are faster than others, such as why building a dictionary lookup
+once at the start is more efficient than searching through a list repeatedly.
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "audit_metadata": {
-    "timestamp": "2026-04-03T16:40:30.833301",
+    "timestamp": "2026-04-04T15:07:57.698382",
     "total_users_audited": 20,
     "total_role_assignments": 21,
     "total_violations": 10,
@@ -84,18 +84,18 @@
       "username": "taylorr",
       "violation_type": "stale_account",
       "severity": "MEDIUM",
-      "details": "No login for 153 days (last: 2025-11-01)",
+      "details": "No login for 154 days (last: 2025-11-01)",
       "last_login": "2025-11-01",
-      "days_inactive": 153
+      "days_inactive": 154
     },
     {
       "user_id": "U020",
       "username": "leev",
       "violation_type": "stale_account",
       "severity": "MEDIUM",
-      "details": "No login for 170 days (last: 2025-10-15)",
+      "details": "No login for 171 days (last: 2025-10-15)",
       "last_login": "2025-10-15",
-      "days_inactive": 170
+      "days_inactive": 171
     }
   ]
 }

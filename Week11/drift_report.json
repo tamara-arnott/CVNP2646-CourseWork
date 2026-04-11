@@ -1,0 +1,51 @@
+[
+  {
+    "path": "rules[0].port",
+    "type": "changed",
+    "baseline_value": 443,
+    "current_value": 8080,
+    "severity": "low"
+  },
+  {
+    "path": "rules[1].source",
+    "type": "changed",
+    "baseline_value": "10.0.0.0/8",
+    "current_value": "0.0.0.0/0",
+    "severity": "low"
+  },
+  {
+    "path": "rules[2]",
+    "type": "extra",
+    "baseline_value": null,
+    "current_value": {
+      "name": "temp-debug",
+      "port": 9999,
+      "protocol": "tcp",
+      "source": "0.0.0.0/0",
+      "action": "allow",
+      "enabled": true
+    },
+    "severity": "low"
+  },
+  {
+    "path": "logging.destination",
+    "type": "missing",
+    "baseline_value": "siem",
+    "current_value": null,
+    "severity": "medium"
+  },
+  {
+    "path": "logging.enabled",
+    "type": "changed",
+    "baseline_value": true,
+    "current_value": false,
+    "severity": "high"
+  },
+  {
+    "path": "logging.level",
+    "type": "changed",
+    "baseline_value": "info",
+    "current_value": "debug",
+    "severity": "low"
+  }
+]

@@ -3,6 +3,7 @@
 
 import sys
 import json
+import logging
 
 
 # ---------------------------------------------------------------------------
@@ -41,6 +42,57 @@ class NetworkConfig:
 
 
 # ---------------------------------------------------------------------------
+# Phase 4: Professional logging setup
+# ---------------------------------------------------------------------------
+
+def setup_logging(log_file: str = "network_monitor.log",
+                  log_level: str = "INFO") -> logging.Logger:
+    """Configure logging with both file and console output.
+    
+    File handler: logs everything at DEBUG level and above (complete record).
+    Console handler: logs at the configured level (less noisy).
+    
+    Args:
+        log_file: Path to the log file
+        log_level: Minimum level for console output (DEBUG/INFO/WARNING/ERROR)
+        
+    Returns:
+        Configured logger instance
+    """
+    numeric_level = getattr(logging, log_level.upper(), logging.INFO)
+
+    logger = logging.getLogger("network_monitor")
+    logger.setLevel(logging.DEBUG)
+
+    # Clear any existing handlers
+    logger.handlers = []
+
+    # File handler - captures everything
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setLevel(logging.DEBUG)
+    file_formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    file_handler.setFormatter(file_formatter)
+
+    # Console handler - respects configured level
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(numeric_level)
+    console_formatter = logging.Formatter('%(levelname)s: %(message)s')
+    console_handler.setFormatter(console_formatter)
+
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+
+    return logger
+
+
+# Module-level logger - used by all functions below
+logger = logging.getLogger("network_monitor")
+
+
+# ---------------------------------------------------------------------------
 # Phase 3a: Pure function - parse a single packet line
 # ---------------------------------------------------------------------------
 
@@ -60,25 +112,25 @@ def parse_packet_line(line: str) -> dict:
         ValueError: If src_port or dst_port are not valid integers
     """
     parts = line.strip().split(",")
-    
+
     if len(parts) != 6:
         raise ValueError(f"Expected 6 fields, got {len(parts)}: '{line.strip()}'")
-    
+
     src_ip = parts[0].strip()
     dst_ip = parts[1].strip()
     protocol = parts[4].strip().upper()
     flags = parts[5].strip()
-    
+
     try:
         src_port = int(parts[2].strip())
     except ValueError:
         raise ValueError(f"Invalid src_port '{parts[2].strip()}' - must be an integer")
-    
+
     try:
         dst_port = int(parts[3].strip())
     except ValueError:
         raise ValueError(f"Invalid dst_port '{parts[3].strip()}' - must be an integer")
-    
+
     return {
         "src_ip": src_ip,
         "dst_ip": dst_ip,
@@ -161,7 +213,7 @@ def detect_syn_flood(packets: list, src_ip: str, threshold: int) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Phase 3d: Separate I/O from logic
+# Phase 3d: Separated I/O and logic - now with proper logging
 # ---------------------------------------------------------------------------
 
 def load_traffic_log(filepath: str) -> tuple:
@@ -182,10 +234,12 @@ def load_traffic_log(filepath: str) -> tuple:
     packets = []
     errors = 0
 
+    logger.info("Loading traffic log: %s", filepath)
+
     with open(filepath, 'r') as f:
         lines = f.readlines()
 
-    print(f"loaded {len(lines)} lines")
+    logger.info("Loaded %d lines from file", len(lines))
 
     for i, line in enumerate(lines):
         line = line.strip()
@@ -194,11 +248,13 @@ def load_traffic_log(filepath: str) -> tuple:
         try:
             packet = parse_packet_line(line)
             packets.append(packet)
-            print(f"parsed packet {i}: {packet['src_ip']} -> {packet['dst_ip']}:{packet['dst_port']}")
+            logger.debug("Parsed packet %d: %s -> %s:%s",
+                         i, packet['src_ip'], packet['dst_ip'], packet['dst_port'])
         except ValueError as e:
             errors += 1
-            print(f"ERROR: could not parse line {i}: {e}")
+            logger.error("Parse error at line %d: %s", i, str(e))
 
+    logger.info("Parsed %d packets successfully, %d errors", len(packets), errors)
     return packets, errors
 
 
@@ -213,38 +269,47 @@ def analyze_traffic(packets: list, config: NetworkConfig) -> dict:
         config: NetworkConfig with detection thresholds
         
     Returns:
-        Dictionary with keys: total_packets, parse_errors,
-        port_scans, syn_floods, summary
+        Dictionary with keys: port_scans, syn_floods
     """
+    logger.info("Starting traffic analysis on %d packets", len(packets))
+
     src_ips = list({p["src_ip"] for p in packets})
+    logger.info("Found %d unique source IPs", len(src_ips))
 
     port_scans = []
     syn_floods = []
 
-    print("checking for port scans...")
+    logger.info("Checking for port scans (threshold: %d ports)",
+                config.port_scan_threshold)
     for ip in src_ips:
         unique_ports = {p["dst_port"] for p in packets if p["src_ip"] == ip}
-        print(f"  {ip} targeted {len(unique_ports)} unique ports")
+        logger.debug("  %s targeted %d unique ports", ip, len(unique_ports))
 
         if detect_port_scan(packets, ip, config.port_scan_threshold):
-            print(f"WARNING: PORT SCAN DETECTED from {ip} ({len(unique_ports)} ports)")
+            logger.warning("PORT SCAN DETECTED: %s scanned %d ports (threshold: %d)",
+                           ip, len(unique_ports), config.port_scan_threshold)
             port_scans.append({
                 "src_ip": ip,
                 "unique_ports": len(unique_ports),
                 "ports": list(unique_ports)
             })
 
-    print("checking for SYN floods...")
+    logger.info("Checking for SYN floods (threshold: %d packets)",
+                config.syn_flood_threshold)
     for ip in src_ips:
         syn_count = sum(1 for p in packets if p["src_ip"] == ip and is_syn_packet(p))
-        print(f"  {ip} sent {syn_count} SYN packets")
+        logger.debug("  %s sent %d SYN packets", ip, syn_count)
 
         if detect_syn_flood(packets, ip, config.syn_flood_threshold):
-            print(f"WARNING: SYN FLOOD DETECTED from {ip} ({syn_count} SYN packets)")
+            logger.warning("SYN FLOOD DETECTED: %s sent %d SYN packets (threshold: %d)",
+                           ip, syn_count, config.syn_flood_threshold)
             syn_floods.append({
                 "src_ip": ip,
                 "syn_count": syn_count
             })
+
+    logger.info("Analysis complete: %d port scans, %d SYN floods detected",
+                len(port_scans), len(syn_floods))
 
     return {
         "port_scans": port_scans,
@@ -253,8 +318,7 @@ def analyze_traffic(packets: list, config: NetworkConfig) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# run_monitor - now just orchestrates: load -> analyze -> save
-# No globals, no mixed concerns
+# run_monitor - orchestrates load -> analyze -> save
 # ---------------------------------------------------------------------------
 
 def run_monitor():
@@ -271,13 +335,15 @@ def run_monitor():
     if len(sys.argv) >= 3:
         output_file = sys.argv[2]
 
-    print("starting network monitor...")
-    print(f"reading file: {log_file}")
+    # Setup logging before doing anything else
+    setup_logging(log_file=config.log_file, log_level="INFO")
+
+    logger.info("Network Monitor starting")
+    logger.info("Input file: %s", log_file)
+    logger.info("Output file: %s", output_file)
 
     # Step 1: Load (I/O)
     packets, errors = load_traffic_log(log_file)
-    print(f"parsed {len(packets)} packets, {errors} errors")
-    print(f"found {len({p['src_ip'] for p in packets})} unique source IPs")
 
     # Step 2: Analyze (pure logic)
     results = analyze_traffic(packets, config)
@@ -294,10 +360,16 @@ def run_monitor():
     with open(output_file, 'w') as f:
         json.dump(output, f, indent=2)
 
-    print(f"\nResults written to {output_file}")
-    print(f"Port scans detected: {len(results['port_scans'])}")
-    print(f"SYN floods detected: {len(results['syn_floods'])}")
-    print("done!")
+    logger.info("Results written to %s", output_file)
+
+    # Final summary to console
+    print(f"\n✓ Analysis complete")
+    print(f"  Total packets:  {len(packets)}")
+    print(f"  Parse errors:   {errors}")
+    print(f"  Port scans:     {len(results['port_scans'])}")
+    print(f"  SYN floods:     {len(results['syn_floods'])}")
+    print(f"\n  Results saved to: {output_file}")
+    print(f"  Log file:         {config.log_file}")
 
 
 # no main guard yet - will fix in Phase 6

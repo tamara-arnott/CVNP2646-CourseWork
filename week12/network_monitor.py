@@ -90,7 +90,26 @@ def parse_packet_line(line: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Original run_monitor - now uses parse_packet_line()
+# Phase 3b: Pure function - check if a packet is a TCP SYN packet
+# ---------------------------------------------------------------------------
+
+def is_syn_packet(packet: dict) -> bool:
+    """Check if a packet is a TCP SYN packet.
+    
+    Pure function - takes a packet dictionary, returns True or False.
+    No side effects, no globals, easy to test.
+    
+    Args:
+        packet: Dictionary with keys protocol and flags
+        
+    Returns:
+        True if packet is TCP with SYN flag, False otherwise
+    """
+    return packet["protocol"] == "TCP" and "SYN" in packet["flags"]
+
+
+# ---------------------------------------------------------------------------
+# Original run_monitor - now uses parse_packet_line() and is_syn_packet()
 # ---------------------------------------------------------------------------
 
 # global variables (bad practice - will fix in Phase 3)
@@ -129,7 +148,7 @@ def run_monitor():
             continue
 
         try:
-            packet = parse_packet_line(line)  # now uses our pure function
+            packet = parse_packet_line(line)
             packets.append(packet)
             total += 1
             print(f"parsed packet {i}: {packet['src_ip']} -> {packet['dst_ip']}:{packet['dst_port']}")
@@ -170,7 +189,7 @@ def run_monitor():
         syn_count = 0
         for p in packets:
             if p["src_ip"] == ip:
-                if p["protocol"] == "TCP" and "SYN" in p["flags"]:
+                if is_syn_packet(p):  # now uses our pure function
                     syn_count += 1
 
         print(f"  {ip} sent {syn_count} SYN packets")

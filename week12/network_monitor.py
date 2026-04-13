@@ -161,18 +161,104 @@ def detect_syn_flood(packets: list, src_ip: str, threshold: int) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Original run_monitor - now uses all pure functions
+# Phase 3d: Separate I/O from logic
 # ---------------------------------------------------------------------------
 
-# global variables (bad practice - will fix in Phase 3)
-packets = []
-scan_results = []
-flood_results = []
-total = 0
-errors = 0
+def load_traffic_log(filepath: str) -> tuple:
+    """Load and parse packets from a traffic log file.
+    
+    I/O function - handles all file reading and line parsing.
+    Returns parsed packets and error count separately.
+    
+    Args:
+        filepath: Path to the CSV traffic log file
+        
+    Returns:
+        Tuple of (packets list, error count)
+        
+    Raises:
+        FileNotFoundError: If the log file does not exist
+    """
+    packets = []
+    errors = 0
+
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
+
+    print(f"loaded {len(lines)} lines")
+
+    for i, line in enumerate(lines):
+        line = line.strip()
+        if line == "" or line.startswith("#"):
+            continue
+        try:
+            packet = parse_packet_line(line)
+            packets.append(packet)
+            print(f"parsed packet {i}: {packet['src_ip']} -> {packet['dst_ip']}:{packet['dst_port']}")
+        except ValueError as e:
+            errors += 1
+            print(f"ERROR: could not parse line {i}: {e}")
+
+    return packets, errors
+
+
+def analyze_traffic(packets: list, config: NetworkConfig) -> dict:
+    """Analyze parsed packets for suspicious patterns.
+    
+    Pure logic function - no file I/O, no side effects.
+    Takes data, returns results. Easy to test with fake data.
+    
+    Args:
+        packets: List of parsed packet dictionaries
+        config: NetworkConfig with detection thresholds
+        
+    Returns:
+        Dictionary with keys: total_packets, parse_errors,
+        port_scans, syn_floods, summary
+    """
+    src_ips = list({p["src_ip"] for p in packets})
+
+    port_scans = []
+    syn_floods = []
+
+    print("checking for port scans...")
+    for ip in src_ips:
+        unique_ports = {p["dst_port"] for p in packets if p["src_ip"] == ip}
+        print(f"  {ip} targeted {len(unique_ports)} unique ports")
+
+        if detect_port_scan(packets, ip, config.port_scan_threshold):
+            print(f"WARNING: PORT SCAN DETECTED from {ip} ({len(unique_ports)} ports)")
+            port_scans.append({
+                "src_ip": ip,
+                "unique_ports": len(unique_ports),
+                "ports": list(unique_ports)
+            })
+
+    print("checking for SYN floods...")
+    for ip in src_ips:
+        syn_count = sum(1 for p in packets if p["src_ip"] == ip and is_syn_packet(p))
+        print(f"  {ip} sent {syn_count} SYN packets")
+
+        if detect_syn_flood(packets, ip, config.syn_flood_threshold):
+            print(f"WARNING: SYN FLOOD DETECTED from {ip} ({syn_count} SYN packets)")
+            syn_floods.append({
+                "src_ip": ip,
+                "syn_count": syn_count
+            })
+
+    return {
+        "port_scans": port_scans,
+        "syn_floods": syn_floods
+    }
+
+
+# ---------------------------------------------------------------------------
+# run_monitor - now just orchestrates: load -> analyze -> save
+# No globals, no mixed concerns
+# ---------------------------------------------------------------------------
 
 def run_monitor():
-    global packets, scan_results, flood_results, total, errors
+    """Main orchestration function - glues I/O and logic together."""
 
     if len(sys.argv) < 2:
         print("Usage: python network_monitor.py <log_file>")
@@ -188,74 +274,31 @@ def run_monitor():
     print("starting network monitor...")
     print(f"reading file: {log_file}")
 
-    f = open(log_file, 'r')
-    lines = f.readlines()
-    f.close()
+    # Step 1: Load (I/O)
+    packets, errors = load_traffic_log(log_file)
+    print(f"parsed {len(packets)} packets, {errors} errors")
+    print(f"found {len({p['src_ip'] for p in packets})} unique source IPs")
 
-    print(f"loaded {len(lines)} lines")
+    # Step 2: Analyze (pure logic)
+    results = analyze_traffic(packets, config)
 
-    for i, line in enumerate(lines):
-        line = line.strip()
-        if line == "" or line.startswith("#"):
-            continue
-
-        try:
-            packet = parse_packet_line(line)
-            packets.append(packet)
-            total += 1
-            print(f"parsed packet {i}: {packet['src_ip']} -> {packet['dst_ip']}:{packet['dst_port']}")
-        except ValueError as e:
-            errors += 1
-            print(f"ERROR: could not parse line {i}: {e}")
-
-    print(f"parsed {total} packets, {errors} errors")
-
-    src_ips = list({p["src_ip"] for p in packets})  # use a set for efficiency
-
-    print(f"found {len(src_ips)} unique source IPs")
-    print("checking for port scans...")
-
-    for ip in src_ips:
-        unique_ports = {p["dst_port"] for p in packets if p["src_ip"] == ip}
-        print(f"  {ip} targeted {len(unique_ports)} unique ports")
-
-        if detect_port_scan(packets, ip, config.port_scan_threshold):
-            print(f"WARNING: PORT SCAN DETECTED from {ip} ({len(unique_ports)} ports)")
-            scan_results.append({
-                "src_ip": ip,
-                "unique_ports": len(unique_ports),
-                "ports": list(unique_ports)
-            })
-
-    print("checking for SYN floods...")
-
-    for ip in src_ips:
-        syn_count = sum(1 for p in packets if p["src_ip"] == ip and is_syn_packet(p))
-        print(f"  {ip} sent {syn_count} SYN packets")
-
-        if detect_syn_flood(packets, ip, config.syn_flood_threshold):
-            print(f"WARNING: SYN FLOOD DETECTED from {ip} ({syn_count} SYN packets)")
-            flood_results.append({
-                "src_ip": ip,
-                "syn_count": syn_count
-            })
-
-    results = {
-        "total_packets": total,
+    # Step 3: Save (I/O)
+    output = {
+        "total_packets": len(packets),
         "parse_errors": errors,
-        "port_scans": scan_results,
-        "syn_floods": flood_results,
-        "summary": f"Scanned {total} packets. Found {len(scan_results)} port scans, {len(flood_results)} SYN floods."
+        "port_scans": results["port_scans"],
+        "syn_floods": results["syn_floods"],
+        "summary": f"Scanned {len(packets)} packets. Found {len(results['port_scans'])} port scans, {len(results['syn_floods'])} SYN floods."
     }
 
-    f = open(output_file, 'w')
-    json.dump(results, f, indent=2)
-    f.close()
+    with open(output_file, 'w') as f:
+        json.dump(output, f, indent=2)
 
     print(f"\nResults written to {output_file}")
-    print(f"Port scans detected: {len(scan_results)}")
-    print(f"SYN floods detected: {len(flood_results)}")
+    print(f"Port scans detected: {len(results['port_scans'])}")
+    print(f"SYN floods detected: {len(results['syn_floods'])}")
     print("done!")
+
 
 # no main guard yet - will fix in Phase 6
 run_monitor()

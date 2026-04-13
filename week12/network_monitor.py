@@ -372,5 +372,5 @@ def run_monitor():
     print(f"  Log file:         {config.log_file}")
 
 
-# no main guard yet - will fix in Phase 6
-run_monitor()
+if __name__ == "__main__":
+    run_monitor()

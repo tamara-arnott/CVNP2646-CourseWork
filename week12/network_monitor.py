@@ -109,7 +109,59 @@ def is_syn_packet(packet: dict) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Original run_monitor - now uses parse_packet_line() and is_syn_packet()
+# Phase 3c: Pure functions - detect port scan and SYN flood
+# ---------------------------------------------------------------------------
+
+def detect_port_scan(packets: list, src_ip: str, threshold: int) -> bool:
+    """Detect if a source IP is performing a port scan.
+    
+    Pure function - takes data, returns True or False.
+    No side effects, no globals, easy to test.
+    
+    A port scan is detected when a single source IP contacts
+    more unique destination ports than the threshold allows.
+    
+    Args:
+        packets: List of all parsed packet dictionaries
+        src_ip: Source IP address to check
+        threshold: Number of unique destination ports that triggers detection
+        
+    Returns:
+        True if port scan detected, False otherwise
+    """
+    unique_ports = {
+        p["dst_port"] for p in packets
+        if p["src_ip"] == src_ip
+    }
+    return len(unique_ports) > threshold
+
+
+def detect_syn_flood(packets: list, src_ip: str, threshold: int) -> bool:
+    """Detect if a source IP is performing a SYN flood attack.
+    
+    Pure function - takes data, returns True or False.
+    No side effects, no globals, easy to test.
+    
+    A SYN flood is detected when a single source IP sends
+    more TCP SYN packets than the threshold allows.
+    
+    Args:
+        packets: List of all parsed packet dictionaries
+        src_ip: Source IP address to check
+        threshold: Number of SYN packets that triggers detection
+        
+    Returns:
+        True if SYN flood detected, False otherwise
+    """
+    syn_count = sum(
+        1 for p in packets
+        if p["src_ip"] == src_ip and is_syn_packet(p)
+    )
+    return syn_count > threshold
+
+
+# ---------------------------------------------------------------------------
+# Original run_monitor - now uses all pure functions
 # ---------------------------------------------------------------------------
 
 # global variables (bad practice - will fix in Phase 3)
@@ -158,43 +210,30 @@ def run_monitor():
 
     print(f"parsed {total} packets, {errors} errors")
 
-    src_ips = []
-    for p in packets:
-        if p["src_ip"] not in src_ips:
-            src_ips.append(p["src_ip"])
+    src_ips = list({p["src_ip"] for p in packets})  # use a set for efficiency
 
     print(f"found {len(src_ips)} unique source IPs")
     print("checking for port scans...")
 
     for ip in src_ips:
-        dst_ports = []
-        for p in packets:
-            if p["src_ip"] == ip:
-                if p["dst_port"] not in dst_ports:
-                    dst_ports.append(p["dst_port"])
+        unique_ports = {p["dst_port"] for p in packets if p["src_ip"] == ip}
+        print(f"  {ip} targeted {len(unique_ports)} unique ports")
 
-        print(f"  {ip} targeted {len(dst_ports)} unique ports")
-
-        if len(dst_ports) > config.port_scan_threshold:
-            print(f"WARNING: PORT SCAN DETECTED from {ip} ({len(dst_ports)} ports)")
+        if detect_port_scan(packets, ip, config.port_scan_threshold):
+            print(f"WARNING: PORT SCAN DETECTED from {ip} ({len(unique_ports)} ports)")
             scan_results.append({
                 "src_ip": ip,
-                "unique_ports": len(dst_ports),
-                "ports": dst_ports
+                "unique_ports": len(unique_ports),
+                "ports": list(unique_ports)
             })
 
     print("checking for SYN floods...")
 
     for ip in src_ips:
-        syn_count = 0
-        for p in packets:
-            if p["src_ip"] == ip:
-                if is_syn_packet(p):  # now uses our pure function
-                    syn_count += 1
-
+        syn_count = sum(1 for p in packets if p["src_ip"] == ip and is_syn_packet(p))
         print(f"  {ip} sent {syn_count} SYN packets")
 
-        if syn_count > config.syn_flood_threshold:
+        if detect_syn_flood(packets, ip, config.syn_flood_threshold):
             print(f"WARNING: SYN FLOOD DETECTED from {ip} ({syn_count} SYN packets)")
             flood_results.append({
                 "src_ip": ip,

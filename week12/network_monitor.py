@@ -6,7 +6,7 @@ import json
 
 
 # ---------------------------------------------------------------------------
-# Phase 2: Configuration class - replaces all magic numbers
+# Phase 2: Configuration class
 # ---------------------------------------------------------------------------
 
 class NetworkConfig:
@@ -16,7 +16,6 @@ class NetworkConfig:
     never appear scattered through the code.
     """
 
-    # Class-level defaults - documented so meaning is clear
     DEFAULT_PORT_SCAN_THRESHOLD = 25   # unique destination ports before flagging as port scan
     DEFAULT_SYN_FLOOD_THRESHOLD = 100  # SYN packets from one IP before flagging as flood
     DEFAULT_LOG_FILE = "network_monitor.log"
@@ -42,7 +41,56 @@ class NetworkConfig:
 
 
 # ---------------------------------------------------------------------------
-# Original code below - will be refactored in later phases
+# Phase 3a: Pure function - parse a single packet line
+# ---------------------------------------------------------------------------
+
+def parse_packet_line(line: str) -> dict:
+    """Parse a single CSV packet line into a dictionary.
+    
+    Pure function - no side effects, no globals, easy to test.
+    
+    Args:
+        line: CSV string with format src_ip,dst_ip,src_port,dst_port,protocol,flags
+        
+    Returns:
+        Dictionary with keys: src_ip, dst_ip, src_port, dst_port, protocol, flags
+        
+    Raises:
+        ValueError: If line does not have exactly 6 fields
+        ValueError: If src_port or dst_port are not valid integers
+    """
+    parts = line.strip().split(",")
+    
+    if len(parts) != 6:
+        raise ValueError(f"Expected 6 fields, got {len(parts)}: '{line.strip()}'")
+    
+    src_ip = parts[0].strip()
+    dst_ip = parts[1].strip()
+    protocol = parts[4].strip().upper()
+    flags = parts[5].strip()
+    
+    try:
+        src_port = int(parts[2].strip())
+    except ValueError:
+        raise ValueError(f"Invalid src_port '{parts[2].strip()}' - must be an integer")
+    
+    try:
+        dst_port = int(parts[3].strip())
+    except ValueError:
+        raise ValueError(f"Invalid dst_port '{parts[3].strip()}' - must be an integer")
+    
+    return {
+        "src_ip": src_ip,
+        "dst_ip": dst_ip,
+        "src_port": src_port,
+        "dst_port": dst_port,
+        "protocol": protocol,
+        "flags": flags
+    }
+
+
+# ---------------------------------------------------------------------------
+# Original run_monitor - now uses parse_packet_line()
 # ---------------------------------------------------------------------------
 
 # global variables (bad practice - will fix in Phase 3)
@@ -55,14 +103,13 @@ errors = 0
 def run_monitor():
     global packets, scan_results, flood_results, total, errors
 
-    # crude argument parsing (will fix in Phase 6)
     if len(sys.argv) < 2:
         print("Usage: python network_monitor.py <log_file>")
         print("Optional: python network_monitor.py <log_file> <output_file>")
         sys.exit(1)
 
     log_file = sys.argv[1]
-    config = NetworkConfig()  # use config instead of magic numbers
+    config = NetworkConfig()
     output_file = config.output_file
     if len(sys.argv) >= 3:
         output_file = sys.argv[2]
@@ -70,43 +117,25 @@ def run_monitor():
     print("starting network monitor...")
     print(f"reading file: {log_file}")
 
-    # read the file - no error handling (will fix in Phase 3)
     f = open(log_file, 'r')
     lines = f.readlines()
     f.close()
 
     print(f"loaded {len(lines)} lines")
 
-    # parse every line
     for i, line in enumerate(lines):
         line = line.strip()
         if line == "" or line.startswith("#"):
             continue
 
-        parts = line.split(",")
-
         try:
-            src_ip = parts[0]
-            dst_ip = parts[1]
-            src_port = int(parts[2])
-            dst_port = int(parts[3])
-            protocol = parts[4]
-            flags = parts[5]
-
-            packet = {
-                "src_ip": src_ip,
-                "dst_ip": dst_ip,
-                "src_port": src_port,
-                "dst_port": dst_port,
-                "protocol": protocol,
-                "flags": flags
-            }
+            packet = parse_packet_line(line)  # now uses our pure function
             packets.append(packet)
             total += 1
-            print(f"parsed packet {i}: {src_ip} -> {dst_ip}:{dst_port}")
-        except:
+            print(f"parsed packet {i}: {packet['src_ip']} -> {packet['dst_ip']}:{packet['dst_port']}")
+        except ValueError as e:
             errors += 1
-            print(f"ERROR: could not parse line {i}: {line}")
+            print(f"ERROR: could not parse line {i}: {e}")
 
     print(f"parsed {total} packets, {errors} errors")
 
@@ -127,7 +156,7 @@ def run_monitor():
 
         print(f"  {ip} targeted {len(dst_ports)} unique ports")
 
-        if len(dst_ports) > config.port_scan_threshold:  # no more magic number
+        if len(dst_ports) > config.port_scan_threshold:
             print(f"WARNING: PORT SCAN DETECTED from {ip} ({len(dst_ports)} ports)")
             scan_results.append({
                 "src_ip": ip,
@@ -146,7 +175,7 @@ def run_monitor():
 
         print(f"  {ip} sent {syn_count} SYN packets")
 
-        if syn_count > config.syn_flood_threshold:  # no more magic number
+        if syn_count > config.syn_flood_threshold:
             print(f"WARNING: SYN FLOOD DETECTED from {ip} ({syn_count} SYN packets)")
             flood_results.append({
                 "src_ip": ip,
@@ -170,5 +199,5 @@ def run_monitor():
     print(f"SYN floods detected: {len(flood_results)}")
     print("done!")
 
-# just call the function directly - no main guard (will fix in Phase 6)
+# no main guard yet - will fix in Phase 6
 run_monitor()

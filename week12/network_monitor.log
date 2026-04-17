@@ -340,3 +340,345 @@
 2026-04-16 21:10:03 - network_monitor - WARNING - SYN FLOOD DETECTED: 172.16.0.77 sent 110 SYN packets (threshold: 100)
 2026-04-16 21:10:03 - network_monitor - INFO - Analysis complete: 1 port scans, 1 SYN floods detected
 2026-04-16 21:10:03 - network_monitor - INFO - Results written to results.json
+2026-04-16 21:48:15 - network_monitor - INFO - Network Monitor v1.0.0 starting
+2026-04-16 21:48:15 - network_monitor - INFO - Input file: traffic_sample.log
+2026-04-16 21:48:15 - network_monitor - INFO - Output file: results.json
+2026-04-16 21:48:15 - network_monitor - INFO - Loading traffic log: traffic_sample.log
+2026-04-16 21:48:15 - network_monitor - INFO - Loaded 151 lines from file
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 2: 192.168.1.10 -> 10.0.0.1:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 3: 192.168.1.10 -> 10.0.0.1:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 4: 192.168.1.10 -> 10.0.0.1:443
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 5: 192.168.1.20 -> 10.0.0.1:53
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 6: 192.168.1.20 -> 10.0.0.1:53
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 7: 10.0.1.99 -> 10.0.0.5:22
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 8: 10.0.1.99 -> 10.0.0.5:23
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 9: 10.0.1.99 -> 10.0.0.5:25
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 10: 10.0.1.99 -> 10.0.0.5:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 11: 10.0.1.99 -> 10.0.0.5:443
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 12: 10.0.1.99 -> 10.0.0.5:3306
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 13: 10.0.1.99 -> 10.0.0.5:5432
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 14: 10.0.1.99 -> 10.0.0.5:8080
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 15: 10.0.1.99 -> 10.0.0.5:8443
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 16: 10.0.1.99 -> 10.0.0.5:9200
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 17: 10.0.1.99 -> 10.0.0.5:27017
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 18: 10.0.1.99 -> 10.0.0.5:6379
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 19: 10.0.1.99 -> 10.0.0.5:21
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 20: 10.0.1.99 -> 10.0.0.5:110
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 21: 10.0.1.99 -> 10.0.0.5:143
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 22: 10.0.1.99 -> 10.0.0.5:993
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 23: 10.0.1.99 -> 10.0.0.5:995
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 24: 10.0.1.99 -> 10.0.0.5:3389
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 25: 10.0.1.99 -> 10.0.0.5:5900
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 26: 10.0.1.99 -> 10.0.0.5:2222
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 27: 10.0.1.99 -> 10.0.0.5:8888
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 28: 10.0.1.99 -> 10.0.0.5:4444
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 29: 10.0.1.99 -> 10.0.0.5:1433
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 30: 10.0.1.99 -> 10.0.0.5:1521
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 31: 10.0.1.99 -> 10.0.0.5:11211
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 32: 10.0.1.99 -> 10.0.0.5:2049
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 33: 10.0.1.99 -> 10.0.0.5:161
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 34: 10.0.1.99 -> 10.0.0.5:514
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 35: 10.0.1.99 -> 10.0.0.5:631
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 36: 10.0.1.99 -> 10.0.0.5:548
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 37: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 38: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 39: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 40: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 41: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 42: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 43: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 44: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 45: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 46: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 47: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 48: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 49: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 50: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 51: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 52: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 53: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 54: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 55: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 56: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 57: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 58: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 59: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 60: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 61: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 62: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 63: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 64: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 65: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 66: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 67: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 68: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 69: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 70: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 71: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 72: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 73: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 74: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 75: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 76: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 77: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 78: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 79: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 80: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 81: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 82: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 83: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 84: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 85: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 86: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 87: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 88: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 89: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 90: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 91: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 92: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 93: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 94: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 95: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 96: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 97: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 98: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 99: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 100: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 101: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 102: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 103: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 104: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 105: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 106: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 107: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 108: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 109: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 110: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 111: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 112: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 113: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 114: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 115: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 116: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 117: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 118: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 119: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 120: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 121: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 122: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 123: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 124: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 125: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 126: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 127: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 128: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 129: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 130: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 131: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 132: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 133: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 134: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 135: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 136: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 137: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 138: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 139: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 140: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 141: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 142: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 143: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 144: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 145: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 146: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:48:15 - network_monitor - ERROR - Parse error at line 147: Invalid src_port 'not_a_port' - must be an integer
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 148: 192.168.1.10 -> 10.0.0.1:80
+2026-04-16 21:48:15 - network_monitor - DEBUG - Parsed packet 149: 192.168.1.10 -> 10.0.0.1:443
+2026-04-16 21:48:15 - network_monitor - ERROR - Parse error at line 150: Expected 6 fields, got 5: '192.168.1.20,10.0.0.1,48200,53,UDP'
+2026-04-16 21:48:15 - network_monitor - INFO - Parsed 147 packets successfully, 2 errors
+2026-04-16 21:48:15 - network_monitor - INFO - Starting traffic analysis on 147 packets
+2026-04-16 21:48:15 - network_monitor - INFO - Found 4 unique source IPs
+2026-04-16 21:48:15 - network_monitor - INFO - Checking for port scans (threshold: 25 ports)
+2026-04-16 21:48:15 - network_monitor - DEBUG -   172.16.0.77 targeted 1 unique ports
+2026-04-16 21:48:15 - network_monitor - DEBUG -   10.0.1.99 targeted 30 unique ports
+2026-04-16 21:48:15 - network_monitor - WARNING - PORT SCAN DETECTED: 10.0.1.99 scanned 30 ports (threshold: 25)
+2026-04-16 21:48:15 - network_monitor - DEBUG -   192.168.1.10 targeted 2 unique ports
+2026-04-16 21:48:15 - network_monitor - DEBUG -   192.168.1.20 targeted 1 unique ports
+2026-04-16 21:48:15 - network_monitor - INFO - Checking for SYN floods (threshold: 100 packets)
+2026-04-16 21:48:15 - network_monitor - DEBUG -   172.16.0.77 sent 110 SYN packets
+2026-04-16 21:48:15 - network_monitor - WARNING - SYN FLOOD DETECTED: 172.16.0.77 sent 110 SYN packets (threshold: 100)
+2026-04-16 21:48:15 - network_monitor - DEBUG -   10.0.1.99 sent 30 SYN packets
+2026-04-16 21:48:15 - network_monitor - DEBUG -   192.168.1.10 sent 3 SYN packets
+2026-04-16 21:48:15 - network_monitor - DEBUG -   192.168.1.20 sent 0 SYN packets
+2026-04-16 21:48:15 - network_monitor - INFO - Analysis complete: 1 port scans, 1 SYN floods detected
+2026-04-16 21:48:15 - network_monitor - INFO - Results written to results.json
+2026-04-16 21:57:02 - network_monitor - INFO - Network Monitor v1.0.0 starting
+2026-04-16 21:57:02 - network_monitor - INFO - Input file: traffic_sample.log
+2026-04-16 21:57:02 - network_monitor - INFO - Output file: results.json
+2026-04-16 21:57:02 - network_monitor - INFO - Loading traffic log: traffic_sample.log
+2026-04-16 21:57:02 - network_monitor - INFO - Loaded 151 lines from file
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 2: 192.168.1.10 -> 10.0.0.1:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 3: 192.168.1.10 -> 10.0.0.1:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 4: 192.168.1.10 -> 10.0.0.1:443
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 5: 192.168.1.20 -> 10.0.0.1:53
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 6: 192.168.1.20 -> 10.0.0.1:53
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 7: 10.0.1.99 -> 10.0.0.5:22
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 8: 10.0.1.99 -> 10.0.0.5:23
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 9: 10.0.1.99 -> 10.0.0.5:25
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 10: 10.0.1.99 -> 10.0.0.5:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 11: 10.0.1.99 -> 10.0.0.5:443
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 12: 10.0.1.99 -> 10.0.0.5:3306
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 13: 10.0.1.99 -> 10.0.0.5:5432
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 14: 10.0.1.99 -> 10.0.0.5:8080
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 15: 10.0.1.99 -> 10.0.0.5:8443
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 16: 10.0.1.99 -> 10.0.0.5:9200
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 17: 10.0.1.99 -> 10.0.0.5:27017
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 18: 10.0.1.99 -> 10.0.0.5:6379
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 19: 10.0.1.99 -> 10.0.0.5:21
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 20: 10.0.1.99 -> 10.0.0.5:110
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 21: 10.0.1.99 -> 10.0.0.5:143
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 22: 10.0.1.99 -> 10.0.0.5:993
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 23: 10.0.1.99 -> 10.0.0.5:995
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 24: 10.0.1.99 -> 10.0.0.5:3389
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 25: 10.0.1.99 -> 10.0.0.5:5900
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 26: 10.0.1.99 -> 10.0.0.5:2222
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 27: 10.0.1.99 -> 10.0.0.5:8888
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 28: 10.0.1.99 -> 10.0.0.5:4444
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 29: 10.0.1.99 -> 10.0.0.5:1433
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 30: 10.0.1.99 -> 10.0.0.5:1521
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 31: 10.0.1.99 -> 10.0.0.5:11211
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 32: 10.0.1.99 -> 10.0.0.5:2049
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 33: 10.0.1.99 -> 10.0.0.5:161
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 34: 10.0.1.99 -> 10.0.0.5:514
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 35: 10.0.1.99 -> 10.0.0.5:631
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 36: 10.0.1.99 -> 10.0.0.5:548
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 37: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 38: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 39: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 40: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 41: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 42: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 43: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 44: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 45: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 46: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 47: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 48: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 49: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 50: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 51: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 52: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 53: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 54: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 55: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 56: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 57: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 58: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 59: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 60: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 61: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 62: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 63: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 64: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 65: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 66: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 67: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 68: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 69: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 70: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 71: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 72: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 73: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 74: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 75: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 76: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 77: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 78: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 79: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 80: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 81: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 82: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 83: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 84: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 85: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 86: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 87: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 88: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 89: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 90: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 91: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 92: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 93: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 94: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 95: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 96: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 97: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 98: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 99: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 100: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 101: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 102: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 103: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 104: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 105: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 106: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 107: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 108: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 109: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 110: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 111: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 112: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 113: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 114: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 115: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 116: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 117: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 118: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 119: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 120: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 121: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 122: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 123: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 124: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 125: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 126: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 127: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 128: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 129: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 130: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 131: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 132: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 133: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 134: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 135: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 136: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 137: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 138: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 139: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 140: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 141: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 142: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 143: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 144: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 145: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 146: 172.16.0.77 -> 10.0.0.2:80
+2026-04-16 21:57:02 - network_monitor - ERROR - Parse error at line 147: Invalid src_port 'not_a_port' - must be an integer
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 148: 192.168.1.10 -> 10.0.0.1:80
+2026-04-16 21:57:02 - network_monitor - DEBUG - Parsed packet 149: 192.168.1.10 -> 10.0.0.1:443
+2026-04-16 21:57:02 - network_monitor - ERROR - Parse error at line 150: Expected 6 fields, got 5: '192.168.1.20,10.0.0.1,48200,53,UDP'
+2026-04-16 21:57:02 - network_monitor - INFO - Parsed 147 packets successfully, 2 errors
+2026-04-16 21:57:02 - network_monitor - INFO - Starting traffic analysis on 147 packets
+2026-04-16 21:57:02 - network_monitor - INFO - Found 4 unique source IPs
+2026-04-16 21:57:02 - network_monitor - INFO - Checking for port scans (threshold: 25 ports)
+2026-04-16 21:57:02 - network_monitor - DEBUG -   172.16.0.77 targeted 1 unique ports
+2026-04-16 21:57:02 - network_monitor - DEBUG -   192.168.1.10 targeted 2 unique ports
+2026-04-16 21:57:02 - network_monitor - DEBUG -   192.168.1.20 targeted 1 unique ports
+2026-04-16 21:57:02 - network_monitor - DEBUG -   10.0.1.99 targeted 30 unique ports
+2026-04-16 21:57:02 - network_monitor - WARNING - PORT SCAN DETECTED: 10.0.1.99 scanned 30 ports (threshold: 25)
+2026-04-16 21:57:02 - network_monitor - INFO - Checking for SYN floods (threshold: 100 packets)
+2026-04-16 21:57:02 - network_monitor - DEBUG -   172.16.0.77 sent 110 SYN packets
+2026-04-16 21:57:02 - network_monitor - WARNING - SYN FLOOD DETECTED: 172.16.0.77 sent 110 SYN packets (threshold: 100)
+2026-04-16 21:57:02 - network_monitor - DEBUG -   192.168.1.10 sent 3 SYN packets
+2026-04-16 21:57:02 - network_monitor - DEBUG -   192.168.1.20 sent 0 SYN packets
+2026-04-16 21:57:02 - network_monitor - DEBUG -   10.0.1.99 sent 30 SYN packets
+2026-04-16 21:57:02 - network_monitor - INFO - Analysis complete: 1 port scans, 1 SYN floods detected
+2026-04-16 21:57:02 - network_monitor - INFO - Results written to results.json

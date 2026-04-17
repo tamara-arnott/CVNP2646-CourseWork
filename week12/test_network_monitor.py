@@ -295,3 +295,21 @@ def test_analyze_clean_traffic_no_alerts(sample_config):
     results = analyze_traffic(packets, sample_config)
     assert results["port_scans"] == []
     assert results["syn_floods"] == []
+
+def test_analyze_returns_total_packets(sample_config):
+    """Integration test: analyze_traffic returns total_packets count."""
+    packets = [
+        {"src_ip": "192.168.1.10", "dst_ip": "10.0.0.1",
+         "dst_port": 80, "protocol": "TCP", "flags": "SYN"},
+        {"src_ip": "192.168.1.10", "dst_ip": "10.0.0.1",
+         "dst_port": 443, "protocol": "TCP", "flags": "ACK"},
+    ]
+    results = analyze_traffic(packets, sample_config)
+    assert "total_packets" in results
+    assert results["total_packets"] == 2
+
+
+def test_parse_empty_string():
+    """Error case: empty string should raise ValueError."""
+    with pytest.raises(ValueError):
+        parse_packet_line("")

@@ -4,6 +4,9 @@
 import sys
 import json
 import logging
+import argparse
+import os
+import ipaddress
 
 
 # ---------------------------------------------------------------------------
@@ -96,6 +99,25 @@ logger = logging.getLogger("network_monitor")
 # Phase 3a: Pure function - parse a single packet line
 # ---------------------------------------------------------------------------
 
+def _validate_ip(ip: str) -> str:
+    """Validate IP address format using Python's ipaddress module.
+    
+    Args:
+        ip: IP address string to validate
+        
+    Returns:
+        The validated IP address string
+        
+    Raises:
+        ValueError: If the IP address format is invalid
+    """
+    try:
+        ipaddress.ip_address(ip)
+        return ip
+    except ValueError:
+        raise ValueError(f"Invalid IP address: '{ip}'")
+
+
 def parse_packet_line(line: str) -> dict:
     """Parse a single CSV packet line into a dictionary.
     
@@ -110,14 +132,16 @@ def parse_packet_line(line: str) -> dict:
     Raises:
         ValueError: If line does not have exactly 6 fields
         ValueError: If src_port or dst_port are not valid integers
+        ValueError: If src_port or dst_port are out of valid range (0-65535)
+        ValueError: If IP addresses are invalid format
     """
     parts = line.strip().split(",")
 
     if len(parts) != 6:
         raise ValueError(f"Expected 6 fields, got {len(parts)}: '{line.strip()}'")
 
-    src_ip = parts[0].strip()
-    dst_ip = parts[1].strip()
+    src_ip = _validate_ip(parts[0].strip())
+    dst_ip = _validate_ip(parts[1].strip())
     protocol = parts[4].strip().upper()
     flags = parts[5].strip()
 
@@ -130,6 +154,12 @@ def parse_packet_line(line: str) -> dict:
         dst_port = int(parts[3].strip())
     except ValueError:
         raise ValueError(f"Invalid dst_port '{parts[3].strip()}' - must be an integer")
+
+    if not 0 <= src_port <= 65535:
+        raise ValueError(f"Invalid src_port {src_port} - must be between 0 and 65535")
+
+    if not 0 <= dst_port <= 65535:
+        raise ValueError(f"Invalid dst_port {dst_port} - must be between 0 and 65535")
 
     return {
         "src_ip": src_ip,
@@ -213,7 +243,7 @@ def detect_syn_flood(packets: list, src_ip: str, threshold: int) -> bool:
 
 
 # ---------------------------------------------------------------------------
-# Phase 3d: Separated I/O and logic - now with proper logging
+# Phase 3d: Separated I/O and logic - with proper logging and error handling
 # ---------------------------------------------------------------------------
 
 def load_traffic_log(filepath: str) -> tuple:
@@ -230,14 +260,22 @@ def load_traffic_log(filepath: str) -> tuple:
         
     Raises:
         FileNotFoundError: If the log file does not exist
+        PermissionError: If the log file cannot be read
     """
     packets = []
     errors = 0
 
     logger.info("Loading traffic log: %s", filepath)
 
-    with open(filepath, 'r') as f:
-        lines = f.readlines()
+    try:
+        with open(filepath, 'r') as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        logger.error("Log file not found: %s", filepath)
+        raise FileNotFoundError(f"Log file not found: {filepath}")
+    except PermissionError:
+        logger.error("Permission denied reading file: %s", filepath)
+        raise PermissionError(f"Cannot read file - permission denied: {filepath}")
 
     logger.info("Loaded %d lines from file", len(lines))
 
@@ -269,7 +307,7 @@ def analyze_traffic(packets: list, config: NetworkConfig) -> dict:
         config: NetworkConfig with detection thresholds
         
     Returns:
-        Dictionary with keys: port_scans, syn_floods
+        Dictionary with keys: total_packets, port_scans, syn_floods
     """
     logger.info("Starting traffic analysis on %d packets", len(packets))
 
@@ -312,65 +350,162 @@ def analyze_traffic(packets: list, config: NetworkConfig) -> dict:
                 len(port_scans), len(syn_floods))
 
     return {
+        "total_packets": len(packets),
         "port_scans": port_scans,
         "syn_floods": syn_floods
     }
 
 
 # ---------------------------------------------------------------------------
-# run_monitor - orchestrates load -> analyze -> save
+# Phase 6: Professional CLI with argparse
 # ---------------------------------------------------------------------------
 
-def run_monitor():
-    """Main orchestration function - glues I/O and logic together."""
+def create_parser() -> argparse.ArgumentParser:
+    """Create and configure the argument parser."""
+    parser = argparse.ArgumentParser(
+        description='Network Traffic Monitor - Detect suspicious network patterns',
+        epilog='Example: %(prog)s traffic_sample.log --output results.json -v'
+    )
 
-    if len(sys.argv) < 2:
-        print("Usage: python network_monitor.py <log_file>")
-        print("Optional: python network_monitor.py <log_file> <output_file>")
-        sys.exit(1)
+    parser.add_argument(
+        'input_file',
+        type=str,
+        help='Path to network traffic log file (CSV format)'
+    )
 
-    log_file = sys.argv[1]
-    config = NetworkConfig()
-    output_file = config.output_file
-    if len(sys.argv) >= 3:
-        output_file = sys.argv[2]
+    parser.add_argument(
+        '--output', '-o',
+        type=str,
+        default=NetworkConfig.DEFAULT_OUTPUT_FILE,
+        help='Output file for results (default: results.json)'
+    )
 
-    # Setup logging before doing anything else
-    setup_logging(log_file=config.log_file, log_level="INFO")
+    parser.add_argument(
+        '--port-scan-threshold', '-p',
+        type=int,
+        default=NetworkConfig.DEFAULT_PORT_SCAN_THRESHOLD,
+        metavar='N',
+        help='Unique ports before flagging as port scan (default: 25)'
+    )
 
-    logger.info("Network Monitor starting")
-    logger.info("Input file: %s", log_file)
-    logger.info("Output file: %s", output_file)
+    parser.add_argument(
+        '--syn-flood-threshold', '-s',
+        type=int,
+        default=NetworkConfig.DEFAULT_SYN_FLOOD_THRESHOLD,
+        metavar='N',
+        help='SYN packets before flagging as flood (default: 100)'
+    )
 
-    # Step 1: Load (I/O)
-    packets, errors = load_traffic_log(log_file)
+    parser.add_argument(
+        '--log-level',
+        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
+        default='INFO',
+        help='Logging verbosity (default: INFO)'
+    )
 
-    # Step 2: Analyze (pure logic)
-    results = analyze_traffic(packets, config)
+    parser.add_argument(
+        '--verbose', '-v',
+        action='store_true',
+        help='Verbose output - sets log level to DEBUG'
+    )
 
-    # Step 3: Save (I/O)
-    output = {
-        "total_packets": len(packets),
-        "parse_errors": errors,
-        "port_scans": results["port_scans"],
-        "syn_floods": results["syn_floods"],
-        "summary": f"Scanned {len(packets)} packets. Found {len(results['port_scans'])} port scans, {len(results['syn_floods'])} SYN floods."
-    }
+    parser.add_argument(
+        '--version',
+        action='version',
+        version='%(prog)s 1.0.0'
+    )
 
-    with open(output_file, 'w') as f:
-        json.dump(output, f, indent=2)
+    return parser
 
-    logger.info("Results written to %s", output_file)
 
-    # Final summary to console
-    print(f"\n✓ Analysis complete")
-    print(f"  Total packets:  {len(packets)}")
-    print(f"  Parse errors:   {errors}")
-    print(f"  Port scans:     {len(results['port_scans'])}")
-    print(f"  SYN floods:     {len(results['syn_floods'])}")
-    print(f"\n  Results saved to: {output_file}")
-    print(f"  Log file:         {config.log_file}")
+def validate_args(args) -> None:
+    """Validate command-line arguments.
+
+    Raises:
+        FileNotFoundError: If input file does not exist
+        ValueError: If thresholds are not positive integers
+    """
+    if not os.path.exists(args.input_file):
+        raise FileNotFoundError(f"Input file not found: {args.input_file}")
+
+    if not os.path.isfile(args.input_file):
+        raise ValueError(f"Input path is not a file: {args.input_file}")
+
+    if args.port_scan_threshold < 1:
+        raise ValueError("Port scan threshold must be at least 1")
+
+    if args.syn_flood_threshold < 1:
+        raise ValueError("SYN flood threshold must be at least 1")
+
+    if args.verbose:
+        args.log_level = 'DEBUG'
+
+
+def main() -> int:
+    """Main entry point. Returns exit code."""
+    parser = create_parser()
+    args = parser.parse_args()
+
+    try:
+        validate_args(args)
+
+        setup_logging(log_level=args.log_level)
+
+        logger.info("Network Monitor v1.0.0 starting")
+        logger.info("Input file: %s", args.input_file)
+        logger.info("Output file: %s", args.output)
+
+        config = NetworkConfig(
+            port_scan_threshold=args.port_scan_threshold,
+            syn_flood_threshold=args.syn_flood_threshold
+        )
+
+        # Step 1: Load
+        packets, errors = load_traffic_log(args.input_file)
+
+        # Step 2: Analyze
+        results = analyze_traffic(packets, config)
+
+        # Step 3: Save
+        output = {
+            "total_packets": results["total_packets"],
+            "parse_errors": errors,
+            "port_scans": results["port_scans"],
+            "syn_floods": results["syn_floods"],
+            "summary": f"Scanned {results['total_packets']} packets. Found {len(results['port_scans'])} port scans, {len(results['syn_floods'])} SYN floods."
+        }
+
+        with open(args.output, 'w') as f:
+            json.dump(output, f, indent=2)
+
+        logger.info("Results written to %s", args.output)
+
+        print(f"\n✓ Analysis complete")
+        print(f"  Total packets:  {results['total_packets']}")
+        print(f"  Parse errors:   {errors}")
+        print(f"  Port scans:     {len(results['port_scans'])}")
+        print(f"  SYN floods:     {len(results['syn_floods'])}")
+        print(f"\n  Results saved to: {args.output}")
+
+        return 0
+
+    except FileNotFoundError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    except ValueError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 1
+
+    except KeyboardInterrupt:
+        print("\nAborted by user", file=sys.stderr)
+        return 130
+
+    except Exception as e:
+        print(f"FATAL: {e}", file=sys.stderr)
+        logger.exception("Unexpected error")
+        return 2
 
 
 if __name__ == "__main__":
-    run_monitor()
+    sys.exit(main())
